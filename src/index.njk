@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-permalink: /Salon2/
+permalink: /
 
 # ── SEO ──────────────────────────────────────────────────────────
 title: "Salon Bien-Être Nogent-le-Roi (28) – 4 & 5 Avril 2026"
@@ -66,12 +66,12 @@ structuredData:
         postalCode: "28210"
         addressCountry: "FR"
     image:
-      - "https://bridgeflowfolk.github.io/Salon2/preview.jpg"
+      - "https://bridgeflowfolk.github.io/preview.jpg"
     description: "Salon intergénérationnel bien-être avec 38 exposants, ateliers, conférences et massages. Entrée gratuite + tombola avec lots à gagner."
     organizer:
       "@type": "Organization"
       name: "Bridge & Flow Folk"
-      url: "https://bridgeflowfolk.github.io/Salon2/"
+      url: "https://bridgeflowfolk.github.io/"
     offers:
       - "@type": "Offer"
         name: "Entrée salon"
@@ -89,8 +89,8 @@ structuredData:
   - "@context": "https://schema.org"
     "@type": "Organization"
     name: "Bridge & Flow Folk"
-    url: "https://bridgeflowfolk.github.io/Salon2/"
-    logo: "https://bridgeflowfolk.github.io/Salon2/preview.jpg"
+    url: "https://bridgeflowfolk.github.io/"
+    logo: "https://bridgeflowfolk.github.io/preview.jpg"
 
 # ── STYLES SPÉCIFIQUES À CETTE PAGE ──────────────────────────────
 pageStyles: |
@@ -256,7 +256,7 @@ pageStyles: |
 {# Grille navigation pages #}
 <div class="nav-grille">
   {% for item in navigation %}
-  {% if item.url != "/Salon2/" %}
+  {% if item.url != "/" %}
   <a href="{{ item.url }}" class="nav-carte">
     <span class="nav-emoji">{{ item.emoji }}</span>
     <span class="nav-titre">{{ item.label }}</span>
