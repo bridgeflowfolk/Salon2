@@ -1,0 +1,191 @@
+---
+layout: base.njk
+permalink: /Salon2/apropos/
+
+title: "À propos — Bridge & Flow Folk"
+description: "Découvrez l'histoire et les valeurs de Bridge & Flow Folk, association créatrice du salon Bien-Être et Créateurs à Nogent-le-Roi."
+
+hero:
+  tag:       "Notre histoire · Nos valeurs"
+  titre:     "À propos de"
+  titreEm:   "Bridge & Flow Folk"
+  sousTitre: "Une aventure humaine, collective et engagée"
+
+fondatrices:
+  - emoji: "🌸"
+    nom:   "Adeline Grandjean-Langlois"
+    role:  "Présidente"
+  - emoji: "🌿"
+    nom:   "Élodie Évrard"
+    role:  "Trésorière"
+
+piliers:
+  - mot:    "Bridge"
+    label:  "Construire des ponts"
+    desc:   "Relier les générations, les individus, les structures et les initiatives locales pour tisser un réseau vivant."
+    couleur: "linear-gradient(to right, var(--or), #e8c080)"
+  - mot:    "Flow"
+    label:  "Insuffler la dynamique"
+    desc:   "Permettre le mouvement, la circulation des idées et des connexions dans une énergie collective, fluide et vivante."
+    couleur: "linear-gradient(to right, var(--sauge), #90c090)"
+  - mot:    "Folk"
+    label:  "L'humain au centre"
+    desc:   "Replacer chaque personne au cœur de l'action, dans une logique de partage, de proximité et d'authenticité."
+    couleur: "linear-gradient(to right, var(--lotus), #d4a0b0)"
+
+sections:
+  - icone: "🌱"
+    titre: "Notre mission"
+    texte: "L'association œuvre à promouvoir un bien-être global, accessible à tous, dans une démarche de prévention et d'épanouissement personnel. Du « bien grandir » au « bien vieillir » — le fil directeur du cabinet de la présidente — elle développe des actions favorisant l'équilibre physique, émotionnel, mental et social, dans un cadre non thérapeutique."
+  - icone: "🤝"
+    titre: "Nos actions"
+    texte: "Bridge & Flow Folk conçoit et anime des événements, ateliers, rencontres et expériences autour du bien-être, en collaboration avec des professionnels, partenaires et acteurs locaux. Elle s'adresse aussi bien aux particuliers qu'aux entreprises, collectivités et institutions, en présentiel comme à distance."
+  - icone: "🔗"
+    titre: "Notre ancrage local"
+    texte: "Ancrée dans une logique de coopération, l'association valorise les synergies locales en mutualisant les ressources, en facilitant l'organisation d'événements et en soutenant des causes d'intérêt général. Elle crée ainsi des espaces d'échange, de partage et de transmission, où chacun peut trouver sa place."
+  - icone: "🌍"
+    titre: "Demain"
+    texte: "Des projets intergénérationnels verront prochainement le jour, portés par des partenariats concrets et une volonté forte de favoriser le vivre-ensemble responsable."
+
+citation: "Bridge & Flow Folk, c'est avant tout une aventure humaine, collective et engagée, au service du lien, du sens et du bien-être partagé."
+
+pageStyles: |
+  .asso-intro {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    backdrop-filter: blur(8px); margin-bottom: 2rem;
+    position: relative; overflow: hidden;
+    opacity: 0; animation: glisser-haut 0.7s ease forwards 0.4s;
+  }
+  .asso-intro::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(to right, var(--sauge), var(--or), var(--lotus));
+  }
+  .asso-intro p { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 1.8; color: var(--nuit); margin: 0; }
+  .asso-intro p + p { margin-top: 1rem; }
+
+  .piliers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
+  .pilier-bloc {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; padding: 1.8rem 1.4rem;
+    backdrop-filter: blur(8px); text-align: center;
+    opacity: 0; animation: glisser-haut 0.7s ease forwards;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .pilier-bloc:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(160,132,92,0.15); }
+  .pilier-mot { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; font-style: italic; color: var(--nuit); display: block; margin-bottom: 0.4rem; }
+  .pilier-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terre); display: block; margin-bottom: 0.9rem; }
+  .pilier-desc { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; color: var(--nuit); line-height: 1.6; }
+
+  .fondatrices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
+  .fondatrice-carte {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; padding: 1.8rem 1.5rem;
+    backdrop-filter: blur(8px); text-align: center;
+    opacity: 0; animation: glisser-haut 0.7s ease forwards;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .fondatrice-carte:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(160,132,92,0.15); }
+  .fondatrice-emoji { font-size: 1.8rem; display: block; margin-bottom: 0.7rem; }
+  .fondatrice-nom { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--nuit); display: block; margin-bottom: 0.2rem; }
+  .fondatrice-role { font-family: 'Josefin Sans', sans-serif; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terre); }
+
+  .section-bloc {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; padding: 2rem;
+    backdrop-filter: blur(8px); margin-bottom: 1.5rem;
+    opacity: 0; animation: glisser-haut 0.7s ease forwards;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .section-bloc:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(160,132,92,0.12); }
+  .section-titre { font-family: 'Josefin Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terre); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-titre::after { content: ''; flex: 1; height: 1px; background: rgba(201,169,110,0.3); }
+  .section-bloc p { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.8; color: var(--nuit); margin: 0; }
+
+  .citation-finale {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; padding: 2rem;
+    backdrop-filter: blur(8px); text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0; animation: glisser-haut 0.7s ease forwards 1.4s;
+    position: relative; overflow: hidden;
+  }
+  .citation-finale::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(to right, var(--sauge), var(--or), var(--lotus));
+  }
+  .citation-finale blockquote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; line-height: 1.7; color: var(--terre); margin: 0; }
+
+  .footer-bloc { text-align: center; opacity: 0; animation: glisser-haut 0.8s ease forwards 1.5s; }
+  @media(max-width: 600px) { .piliers { grid-template-columns: 1fr; } .fondatrices { grid-template-columns: 1fr; } }
+---
+
+{# Hero #}
+<div class="hero anime" style="animation-delay:0.2s">
+  <span class="hero-tag">{{ hero.tag }}</span>
+  <h1>{{ hero.titre }}<br><em>{{ hero.titreEm }}</em></h1>
+  <p class="hero-sub">{{ hero.sousTitre }}</p>
+</div>
+
+<div class="sep">
+  <div class="sep-l"></div><div class="sep-d"></div>
+  <div class="sep-d" style="background:var(--sauge)"></div>
+  <div class="sep-d"></div><div class="sep-r"></div>
+</div>
+
+{# Intro #}
+<div class="asso-intro">
+  <p>Bridge &amp; Flow Folk est une association née en 2026 de la rencontre de deux femmes engagées. Ensemble, elles portent une vision commune : créer du lien, du mouvement et du sens au cœur de nos territoires.</p>
+</div>
+
+{# Fondatrices #}
+<div class="fondatrices">
+  {% for f in fondatrices %}
+  <div class="fondatrice-carte" style="animation-delay:{{ 0.9 + loop.index0 * 0.15 }}s;">
+    <span class="fondatrice-emoji">{{ f.emoji }}</span>
+    <span class="fondatrice-nom">{{ f.nom }}</span>
+    <span class="fondatrice-role">{{ f.role }}</span>
+  </div>
+  {% endfor %}
+</div>
+
+{# Piliers #}
+<div class="piliers">
+  {% for p in piliers %}
+  <div class="pilier-bloc" style="animation-delay:{{ 0.55 + loop.index0 * 0.15 }}s;">
+    <span style="position:absolute;top:0;left:0;right:0;height:3px;background:{{ p.couleur }};display:block;"></span>
+    <span class="pilier-mot">{{ p.mot }}</span>
+    <span class="pilier-label">{{ p.label }}</span>
+    <p class="pilier-desc">{{ p.desc }}</p>
+  </div>
+  {% endfor %}
+</div>
+
+{# Sections #}
+{% for s in sections %}
+<div class="section-bloc" style="animation-delay:{{ 1.0 + loop.index0 * 0.1 }}s;">
+  <div class="section-titre">{{ s.icone }} {{ s.titre }}</div>
+  <p>{{ s.texte }}</p>
+</div>
+{% endfor %}
+
+{# Citation #}
+<div class="citation-finale">
+  <blockquote>{{ citation }}</blockquote>
+</div>
+
+{# Footer #}
+<div class="footer-bloc">
+  <a class="fb-lien" href="https://www.facebook.com/people/Bridge-Flow-Folk-BFF/61587252715739/" target="_blank" rel="noopener noreferrer">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+    Suivre Bridge &amp; Flow Folk
+  </a>
+  <footer>© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28) · 06 18 29 18 73</footer>
+</div>

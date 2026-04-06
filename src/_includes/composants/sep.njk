@@ -1,0 +1,16 @@
+{#
+  Composant : séparateur décoratif
+  Usage : {% from "composants/sep.njk" import sep %}
+          {{ sep() }}
+          {{ sep(couleur="sauge") }}   (couleur du diamant central : or (défaut) | sauge | lotus)
+#}
+
+{% macro sep(couleur="or") %}
+<div class="sep">
+  <div class="sep-l"></div>
+  <div class="sep-d"></div>
+  <div class="sep-d" style="background:var(--{{ couleur }})"></div>
+  <div class="sep-d"></div>
+  <div class="sep-r"></div>
+</div>
+{% endmacro %}

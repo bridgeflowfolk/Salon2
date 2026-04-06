@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {# SEO #}
+  <title>{{ seo.title if seo.title else title }} | Bridge & Flow Folk</title>
+  <meta name="description" content="{{ seo.description if seo.description else description }}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://bridgeflowfolk.github.io{{ page.url }}" />
+  {% if seo.googleVerification %}
+  <meta name="google-site-verification" content="{{ seo.googleVerification }}" />
+  {% endif %}
+
+  {# Open Graph #}
+  <meta property="og:title"       content="{{ seo.ogTitle if seo.ogTitle else title }}" />
+  <meta property="og:description" content="{{ seo.ogDescription if seo.ogDescription else description }}" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://bridgeflowfolk.github.io{{ page.url }}" />
+  <meta property="og:image"       content="https://bridgeflowfolk.github.io/Salon2/preview.jpg" />
+  <meta property="fb:app_id"      content="966242223397117" />
+
+  {# Twitter Card #}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="{{ seo.ogTitle if seo.ogTitle else title }}" />
+  <meta name="twitter:description" content="{{ seo.ogDescription if seo.ogDescription else description }}" />
+  <meta name="twitter:image"       content="https://bridgeflowfolk.github.io/Salon2/preview.jpg" />
+
+  {# Fonts #}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  {# CSS commun #}
+  <link rel="stylesheet" href="/Salon2/assets/css/commun.css" />
+
+  {# CSS spécifique à la page (optionnel) #}
+  {% if pageStyles %}
+  <style>{{ pageStyles | safe }}</style>
+  {% endif %}
+
+  {# Structured Data injectée par la page #}
+  {% if structuredData %}
+  {% for bloc in structuredData %}
+  <script type="application/ld+json">{{ bloc | dump | safe }}</script>
+  {% endfor %}
+  {% endif %}
+</head>
+<body>
+
+  {# Déco cercles #}
+  <div class="deco deco-1"></div>
+  <div class="deco deco-2"></div>
+
+  {# Navigation principale #}
+  <nav class="nav-principale" aria-label="Navigation principale">
+    <a href="/Salon2/" class="nav-logo">
+      <img src="/Salon2/logo-sansFond.png"
+           alt="Logo Bridge & Flow Folk"
+           width="90" height="90"
+           style="object-fit:contain;flex-shrink:0;margin-right:8px;" />
+    </a>
+
+    {# Liens desktop — générés depuis navigation.json #}
+    <div class="nav-liens" role="list">
+      {% for item in navigation %}
+      <a href="{{ item.url }}"
+         role="listitem"
+         {% if page.url == item.url %}class="actif" aria-current="page"{% endif %}>
+        {{ item.label }}
+      </a>
+      {% endfor %}
+    </div>
+
+    <button class="nav-burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="navMobile"
+            onclick="toggleMenu(this)">☰</button>
+  </nav>
+
+  {# Menu mobile — même source navigation.json #}
+  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Menu mobile">
+    {% for item in navigation %}
+    <a href="{{ item.url }}" onclick="fermerMenu()">
+      {{ item.emoji }} {{ item.label }}
+    </a>
+    {% endfor %}
+  </div>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  {# JS partagé : burger + pétales #}
+  <script src="/Salon2/assets/js/commun.js"></script>
+
+  {# JS spécifique à la page #}
+  {% if pageScript %}
+  <script>{{ pageScript | safe }}</script>
+  {% endif %}
+
+</body>
+</html>

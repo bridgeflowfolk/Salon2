@@ -1,0 +1,31 @@
+{#
+  Composant : bloc hero de page
+  Usage :
+    {% from "composants/hero.njk" import hero %}
+
+    (Titre simple)
+    {{ hero(tag="Mon tag", titre="Mon titre", sousTitre="Mon sous-titre") }}
+
+    (Titre avec mot en italique coloré)
+    {{ hero(tag="Mon tag", titre="Mon titre", titreEm="en italique", sousTitre="Mon sous-titre") }}
+
+    (titreEm s'insère APRÈS le titre sur une nouvelle ligne si titre contient <br>)
+
+  Paramètres :
+    tag       (str) — Petit texte uppercase au-dessus du titre
+    titre     (str) — Titre principal (peut contenir du HTML ex: "Bien-Être<br>et")
+    titreEm   (str) — Mot en italique coloré var(--terre), affiché sur sa propre ligne
+    sousTitre (str) — Sous-titre en italique Cormorant
+    delay     (str) — Animation-delay, défaut "0.2s"
+#}
+
+{% macro hero(tag="", titre="", titreEm="", sousTitre="", delay="0.2s") %}
+<div class="hero anime" style="animation-delay:{{ delay }}">
+  {% if tag %}<span class="hero-tag">{{ tag }}</span>{% endif %}
+  <h1>
+    {{ titre | safe }}
+    {% if titreEm %}<br><em>{{ titreEm }}</em>{% endif %}
+  </h1>
+  {% if sousTitre %}<p class="hero-sub">{{ sousTitre }}</p>{% endif %}
+</div>
+{% endmacro %}

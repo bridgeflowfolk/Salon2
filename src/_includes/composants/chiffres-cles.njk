@@ -1,0 +1,88 @@
+{#
+  ════════════════════════════════════════════════════════════════
+  Composant : chiffres-cles
+  ════════════════════════════════════════════════════════════════
+  Usage :
+    {% from "composants/chiffres-cles.njk" import chiffres_cles %}
+    {{ chiffres_cles(chiffres) }}
+
+  Structure YAML attendue :
+    chiffres:
+      - valeur: "38"
+        unite:  "exposants"
+        emoji:  "🏪"
+        couleur: or
+      - valeur: "2 850 €"
+        unite:  "de lots tombola"
+        emoji:  "🎁"
+        couleur: lotus
+      - valeur: "2"
+        unite:  "jours de salon"
+        emoji:  "📅"
+        couleur: sauge
+      - valeur: "100%"
+        unite:  "entrée gratuite"
+        emoji:  "✨"
+        couleur: or
+
+  Paramètres :
+    chiffres  (list)  — liste {valeur, unite, emoji?, couleur?}
+    colonnes  (int)   — 2 | 3 | 4 (défaut: autofill)
+#}
+
+{% macro chiffres_cles(chiffres, colonnes=0) %}
+{% set cols = "repeat(auto-fill,minmax(160px,1fr))" if colonnes == 0 else "repeat(" + colonnes|string + ",1fr)" %}
+
+<div style="
+  display:grid;
+  grid-template-columns:{{ cols }};
+  gap:1rem;
+  margin-bottom:2rem;
+">
+  {% for c in chiffres %}
+  {% set barres = {
+    "or":    "linear-gradient(to right,var(--or),#e8c080)",
+    "sauge": "linear-gradient(to right,var(--sauge),#90c090)",
+    "lotus": "linear-gradient(to right,var(--lotus),#d4a0b0)"
+  } %}
+  <div style="
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(201,169,110,0.3);
+    border-radius:14px;
+    padding:1.8rem 1rem 1.4rem;
+    text-align:center;
+    backdrop-filter:blur(8px);
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    animation:glisser-haut 0.6s ease forwards {{ 0.3 + loop.index0 * 0.1 }}s;
+    transition:transform 0.3s, box-shadow 0.3s;
+  "
+  onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 30px rgba(160,132,92,0.18)'"
+  onmouseout="this.style.transform='';this.style.boxShadow=''"
+  >
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:{{ barres[c.couleur or 'or'] }};"></div>
+
+    {% if c.emoji %}
+    <div style="font-size:1.6rem;margin-bottom:0.5rem;">{{ c.emoji }}</div>
+    {% endif %}
+
+    <div style="
+      font-family:'Cormorant Garamond',serif;
+      font-weight:300;
+      font-size:clamp(1.8rem,5vw,2.8rem);
+      line-height:1;
+      color:var(--nuit);
+      margin-bottom:0.4rem;
+    ">{{ c.valeur }}</div>
+
+    <div style="
+      font-size:0.6rem;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--terre);
+    ">{{ c.unite }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}

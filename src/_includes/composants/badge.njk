@@ -1,0 +1,35 @@
+{#
+  Composant : badge pill coloré
+  Usage :
+    {% from "composants/badge.njk" import badge %}
+
+    {{ badge("✨ Entrée libre & gratuite") }}
+    {{ badge("5 €", couleur="or") }}
+    {{ badge("🏆 Prix Queen BPW 2025", couleur="lotus", small=true) }}
+
+  Paramètres :
+    texte   (str)  — Contenu du badge
+    couleur (str)  — sauge (défaut) | or | lotus | terre
+    small   (bool) — Taille réduite (inside-card), défaut false
+    delay   (str)  — Animation-delay
+#}
+
+{% macro badge(texte, couleur="sauge", small=false, delay="0s") %}
+{% set styles = {
+  "sauge": "background:rgba(122,158,126,0.1);color:var(--sauge);border:1px solid var(--sauge);",
+  "or":    "background:rgba(201,169,110,0.15);color:var(--or);border:1px solid rgba(201,169,110,0.5);",
+  "lotus": "background:rgba(201,120,138,0.12);color:var(--lotus);border:1px solid rgba(201,120,138,0.4);",
+  "terre": "background:rgba(160,132,92,0.12);color:var(--terre);border:1px solid rgba(160,132,92,0.4);"
+} %}
+<span style="
+  display:inline-block;
+  {{ styles[couleur] }}
+  font-size:{% if small %}0.55rem{% else %}0.7rem{% endif %};
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  padding:{% if small %}0.2rem 0.6rem{% else %}6px 18px{% endif %};
+  border-radius:100px;
+  opacity:0;
+  animation:glisser-haut 0.7s ease forwards {{ delay }};
+">{{ texte }}</span>
+{% endmacro %}

@@ -1,0 +1,133 @@
+{#
+  ════════════════════════════════════════════════════════════════
+  Composant : accordéon (FAQ / questions-réponses)
+  ════════════════════════════════════════════════════════════════
+  Usage :
+    {% from "composants/accordeon.njk" import accordeon %}
+    {{ accordeon(faq) }}
+
+  Structure YAML attendue :
+    faq:
+      - question: "À quelle heure ouvre le salon ?"
+        reponse:  "Le salon est ouvert de 10h à 18h les deux jours."
+      - question: "L'entrée est-elle payante ?"
+        reponse:  "Non, l'entrée est entièrement gratuite."
+
+  Paramètres :
+    items      (list)  — liste {question, reponse}
+    couleur    (str)   — or | sauge | lotus
+    ouvert_idx (int)   — index de l'item ouvert par défaut (-1 = aucun)
+    id_prefix  (str)   — préfixe d'id unique si plusieurs accordéons sur la page
+#}
+
+{% macro accordeon(items, couleur="or", ouvert_idx=-1, id_prefix="acc") %}
+{% set barres = {
+  "or":    "var(--or)",
+  "sauge": "var(--sauge)",
+  "lotus": "var(--lotus)"
+} %}
+
+<div class="accordeon-wrapper" style="margin-bottom:2rem;">
+  {% for item in items %}
+  {% set uid = id_prefix + "-" + loop.index | string %}
+  {% set est_ouvert = (loop.index0 == ouvert_idx) %}
+
+  <div class="acc-item" style="
+    border:1px solid rgba(201,169,110,0.25);
+    border-radius:12px;
+    margin-bottom:0.6rem;
+    overflow:hidden;
+    background:rgba(255,255,255,0.5);
+    backdrop-filter:blur(8px);
+    opacity:0;
+    animation:glisser-haut 0.5s ease forwards {{ 0.3 + loop.index0 * 0.07 }}s;
+  ">
+    <button
+      id="btn-{{ uid }}"
+      aria-expanded="{{ 'true' if est_ouvert else 'false' }}"
+      aria-controls="panel-{{ uid }}"
+      onclick="toggleAcc('{{ uid }}')"
+      style="
+        width:100%;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:1rem 1.2rem;
+        background:none;
+        border:none;
+        cursor:pointer;
+        text-align:left;
+        gap:1rem;
+      "
+    >
+      <span style="
+        font-family:'Cormorant Garamond',serif;
+        font-size:1.05rem;
+        font-weight:600;
+        color:var(--nuit);
+        line-height:1.4;
+      ">{{ item.question }}</span>
+
+      <span id="ico-{{ uid }}" style="
+        color:{{ barres[couleur] }};
+        font-size:1.2rem;
+        flex-shrink:0;
+        transition:transform 0.3s;
+        transform:{{ 'rotate(45deg)' if est_ouvert else 'rotate(0deg)' }};
+        display:inline-block;
+      ">＋</span>
+    </button>
+
+    <div
+      id="panel-{{ uid }}"
+      role="region"
+      aria-labelledby="btn-{{ uid }}"
+      style="
+        max-height:{{ '600px' if est_ouvert else '0' }};
+        overflow:hidden;
+        transition:max-height 0.35s ease;
+      "
+    >
+      <div style="
+        padding:0 1.2rem 1.2rem;
+        font-size:0.82rem;
+        color:var(--nuit);
+        line-height:1.75;
+        border-top:1px solid rgba(201,169,110,0.2);
+        padding-top:0.8rem;
+        margin-top:0;
+      ">{{ item.reponse | safe }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+(function() {
+  function toggleAcc(uid) {
+    var panel  = document.getElementById('panel-' + uid);
+    var btn    = document.getElementById('btn-' + uid);
+    var ico    = document.getElementById('ico-' + uid);
+    var ouvert = btn.getAttribute('aria-expanded') === 'true';
+
+    // Fermer tous les autres items du même accordéon
+    var prefix = uid.split('-').slice(0, -1).join('-');
+    document.querySelectorAll('[id^="btn-' + prefix + '"]').forEach(function(b) {
+      if (b.id !== btn.id) {
+        var p = document.getElementById(b.id.replace('btn-', 'panel-'));
+        var i = document.getElementById(b.id.replace('btn-', 'ico-'));
+        b.setAttribute('aria-expanded', 'false');
+        if (p) p.style.maxHeight = '0';
+        if (i) i.style.transform = 'rotate(0deg)';
+      }
+    });
+
+    // Toggler cet item
+    btn.setAttribute('aria-expanded', ouvert ? 'false' : 'true');
+    panel.style.maxHeight = ouvert ? '0' : '600px';
+    ico.style.transform   = ouvert ? 'rotate(0deg)' : 'rotate(45deg)';
+  }
+  window.toggleAcc = toggleAcc;
+})();
+</script>
+{% endmacro %}

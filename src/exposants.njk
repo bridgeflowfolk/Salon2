@@ -1,0 +1,185 @@
+---
+layout: base.njk
+permalink: /Salon2/exposants/
+
+title: "Nos exposants — Salon Bien-Être et Créateurs 2026"
+description: "Découvrez les 38 exposants du salon Bien-Être et Créateurs : sophrologie, massages, bijoux, naturopathie et bien plus encore."
+
+hero:
+  tag:       "Salon 2026 · Bien-Être et Créateurs"
+  titre:     "Nos"
+  titreEm:   "Exposants"
+  sousTitre: "38 créateurs et praticiens passionnés"
+
+# ── Filtre actif au chargement (laisser vide = tous) ────────────
+filtre_defaut: ""
+
+# ── Chiffres clés en haut de page ───────────────────────────────
+chiffres:
+  - valeur: "38"
+    unite:  "exposants"
+    emoji:  "🏪"
+    couleur: or
+  - valeur: "2"
+    unite:  "jours"
+    emoji:  "📅"
+    couleur: sauge
+  - valeur: "100%"
+    unite:  "entrée gratuite"
+    emoji:  "✨"
+    couleur: lotus
+
+pageStyles: |
+  /* ── Filtres catégories ── */
+  .filtres {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    justify-content: center; margin-bottom: 2rem;
+    opacity: 0; animation: glisser-haut 0.6s ease forwards 0.5s;
+  }
+  .filtre-btn {
+    padding: 0.4rem 1rem; border-radius: 100px;
+    border: 1px solid rgba(201,169,110,0.35);
+    font-size: 0.62rem; letter-spacing: 0.15em;
+    text-transform: uppercase; cursor: pointer;
+    background: rgba(255,255,255,0.4); color: var(--terre);
+    transition: all 0.2s;
+  }
+  .filtre-btn.actif, .filtre-btn:hover {
+    background: var(--terre); color: #fff; border-color: var(--terre);
+  }
+
+  /* ── Grille exposants ── */
+  .exposants-grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem; margin-bottom: 3rem;
+  }
+  .exposant-carte {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; overflow: hidden;
+    backdrop-filter: blur(8px);
+    opacity: 0; animation: glisser-haut 0.5s ease forwards;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .exposant-carte:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(160,132,92,0.2);
+  }
+  .exposant-photo {
+    width: 100%; aspect-ratio: 4/3;
+    object-fit: cover; display: block;
+  }
+  .exposant-photo-placeholder {
+    width: 100%; aspect-ratio: 4/3;
+    background: linear-gradient(135deg, rgba(122,158,126,0.15), rgba(201,169,110,0.1));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .exposant-corps { padding: 1.2rem; }
+  .exposant-categorie {
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--sauge); margin-bottom: 0.4rem; display: block;
+  }
+  .exposant-nom {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600; font-size: 1.15rem; color: var(--nuit);
+    margin-bottom: 0.3rem;
+  }
+  .exposant-desc {
+    font-size: 0.72rem; color: var(--terre);
+    line-height: 1.55; margin-bottom: 0.8rem;
+  }
+  .exposant-stand {
+    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(44,44,58,0.45); display: flex; align-items: center; gap: 0.4rem;
+  }
+  .exposant-carte[data-categorie] { display: block; }
+  .exposant-carte.cache { display: none; }
+  .footer-bloc { text-align: center; opacity: 0; animation: glisser-haut 0.8s ease forwards 1.5s; }
+  @media(max-width: 480px) { .exposants-grille { grid-template-columns: 1fr; } }
+---
+
+{% from "composants/sep.njk"          import sep %}
+{% from "composants/chiffres-cles.njk" import chiffres_cles %}
+{% from "composants/footer.njk"        import footer_bloc %}
+
+{# Hero #}
+<div class="hero anime" style="animation-delay:0.2s">
+  <span class="hero-tag">{{ hero.tag }}</span>
+  <h1>{{ hero.titre }}<br><em>{{ hero.titreEm }}</em></h1>
+  <p class="hero-sub">{{ hero.sousTitre }}</p>
+</div>
+
+{{ sep(couleur="sauge") }}
+
+{# Chiffres clés #}
+{{ chiffres_cles(chiffres) }}
+
+{# Filtres par catégorie — générés depuis les données exposants #}
+<div class="filtres" id="filtres">
+  <button class="filtre-btn actif" onclick="filtrer('', this)">Tous</button>
+  {# Les catégories sont injectées dynamiquement par JS #}
+</div>
+
+{# Grille exposants — générée depuis la collection 11ty #}
+<div class="exposants-grille" id="grille-exposants">
+  {% for exposant in collections.exposants | sort(attribute="data.stand") %}
+  <div class="exposant-carte"
+       data-categorie="{{ exposant.data.categorie }}"
+       style="animation-delay:{{ 0.4 + loop.index0 * 0.06 }}s">
+
+    {# Barre top couleur catégorie #}
+    <div style="height:3px;background:linear-gradient(to right,var(--sauge),var(--or),var(--lotus));"></div>
+
+    {# Photo ou placeholder emoji #}
+    {% if exposant.data.photo %}
+    <img class="exposant-photo"
+         src="/Salon2/exposants/{{ exposant.data.photo }}"
+         alt="{{ exposant.data.nom }}"
+         loading="lazy" />
+    {% else %}
+    <div class="exposant-photo-placeholder">{{ exposant.data.emoji or "🌿" }}</div>
+    {% endif %}
+
+    <div class="exposant-corps">
+      <span class="exposant-categorie">{{ exposant.data.categorie }}</span>
+      <div class="exposant-nom">{{ exposant.data.nom }}</div>
+      {% if exposant.data.description %}
+      <div class="exposant-desc">{{ exposant.data.description }}</div>
+      {% endif %}
+      {% if exposant.data.stand %}
+      <div class="exposant-stand">📍 Stand {{ exposant.data.stand }}</div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{{ footer_bloc() }}
+
+<script>
+  // ── Construire les boutons de filtre depuis les catégories présentes ──
+  (function() {
+    var cartes = document.querySelectorAll('[data-categorie]');
+    var cats   = [...new Set([...cartes].map(c => c.dataset.categorie))].sort();
+    var cont   = document.getElementById('filtres');
+    cats.forEach(function(cat) {
+      var btn = document.createElement('button');
+      btn.className = 'filtre-btn';
+      btn.textContent = cat;
+      btn.onclick = function() { filtrer(cat, btn); };
+      cont.appendChild(btn);
+    });
+  })();
+
+  // ── Filtrage par catégorie ──
+  function filtrer(cat, btn) {
+    document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('actif'));
+    btn.classList.add('actif');
+    document.querySelectorAll('[data-categorie]').forEach(function(c) {
+      c.classList.toggle('cache', cat !== '' && c.dataset.categorie !== cat);
+    });
+  }
+</script>

@@ -1,0 +1,42 @@
+{#
+  Composant : carte glassmorphism avec barre top colorée
+  Usage :
+    {% from "composants/carte.njk" import carte %}
+
+    {{ carte(titre="Mon titre", desc="Ma description", prix="5 €") }}
+
+    {{ carte(
+         titre="Yoga Parents-Enfants",
+         desc="Aurélie Bonnet · Le Cocon d'Aurélie",
+         emoji="🧘",
+         couleur="sauge",    (or (défaut) | sauge | lotus)
+         hover=true          (animation translateY au survol, défaut true)
+       )
+    }}
+
+  Paramètres :
+    titre    (str)  — Texte principal, famille Cormorant
+    desc     (str)  — Texte secondaire, petit
+    emoji    (str)  — Optionnel, affiché avant le titre
+    prix     (str)  — Optionnel, affiché en grand en bas
+    couleur  (str)  — Couleur de la barre top : or | sauge | lotus
+    hover    (bool) — Activer l'effet survol, défaut true
+    delay    (str)  — Animation-delay CSS, ex: "0.4s"
+    extra    (str)  — Classes CSS supplémentaires sur la carte
+#}
+
+{% macro carte(titre, desc="", emoji="", prix="", couleur="or", hover=true, delay="0s", extra="") %}
+{% set couleurs = {
+  "or":    "linear-gradient(to right, var(--or), #e8c080)",
+  "sauge": "linear-gradient(to right, var(--sauge), #90c090)",
+  "lotus": "linear-gradient(to right, var(--lotus), #d4a0b0)"
+} %}
+<div class="carte {% if hover %}carte-hover{% endif %} {{ extra }}"
+     style="opacity:0; animation:glisser-haut 0.6s ease forwards {{ delay }}; position:relative; overflow:hidden; padding:1.5rem 1.2rem;">
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:{{ couleurs[couleur] }};"></div>
+  {% if emoji %}<div style="font-size:1.8rem;margin-bottom:0.5rem;">{{ emoji }}</div>{% endif %}
+  <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15rem;color:var(--nuit);margin-bottom:0.4rem;">{{ titre }}</div>
+  {% if desc %}<div style="font-size:0.72rem;color:var(--terre);line-height:1.55;margin-bottom:{% if prix %}0.8rem{% else %}0{% endif %};">{{ desc }}</div>{% endif %}
+  {% if prix %}<div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--or);">{{ prix }}</div>{% endif %}
+</div>
+{% endmacro %}

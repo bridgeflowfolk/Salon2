@@ -1,0 +1,111 @@
+{#
+  ════════════════════════════════════════════════════════════════
+  Composant : grille-cartes
+  ════════════════════════════════════════════════════════════════
+  Usage :
+    {% from "composants/grille-cartes.njk" import grille_cartes %}
+    {{ grille_cartes(cartes) }}
+
+  Chaque carte (objet YAML) :
+    titre     (str)  — obligatoire
+    desc      (str)  — texte secondaire
+    emoji     (str)  — icône optionnelle
+    lien      (str)  — URL si la carte est cliquable
+    couleur   (str)  — or | sauge | lotus  (barre top)
+    badge     (str)  — petit label pill optionnel
+
+  Paramètres du macro :
+    cartes    (list) — tableau d'objets carte
+    colonnes  (int)  — 2 (défaut) | 3 | 4
+    delay0    (float)— animation-delay de départ en secondes
+
+  Exemple front matter YAML :
+    cartes_accueil:
+      - titre: "Sophrologie"
+        desc:  "Séances de relaxation guidée"
+        emoji: "🧘"
+        couleur: sauge
+      - titre: "Massages"
+        desc:  "Bien-être et détente"
+        emoji: "💆"
+        couleur: lotus
+        lien: "/Salon2/programme/"
+#}
+
+{% macro grille_cartes(cartes, colonnes=2, delay0=0.4) %}
+{% set cols_css = {
+  "2": "repeat(2,1fr)",
+  "3": "repeat(3,1fr)",
+  "4": "repeat(4,1fr)"
+} %}
+<div style="
+  display:grid;
+  grid-template-columns:{{ cols_css[colonnes|string] }};
+  gap:1rem;
+  margin-bottom:2rem;
+">
+  {% for c in cartes %}
+  {% set delay = delay0 + loop.index0 * 0.08 %}
+
+  {% if c.lien %}
+  <a href="{{ c.lien }}" style="text-decoration:none;">
+  {% endif %}
+
+  <div style="
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(201,169,110,0.3);
+    border-radius:16px;
+    padding:1.8rem 1.4rem;
+    backdrop-filter:blur(8px);
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    animation:glisser-haut 0.6s ease forwards {{ delay }}s;
+    transition:transform 0.3s, box-shadow 0.3s;
+    {% if c.lien %}cursor:pointer;{% endif %}
+    height:100%;
+    box-sizing:border-box;
+  "
+  {% if c.lien %}
+  onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(160,132,92,0.18)'"
+  onmouseout="this.style.transform='';this.style.boxShadow=''"
+  {% endif %}
+  >
+    (Barre top colorée)
+    {% set barres = {
+      "or":    "linear-gradient(to right,var(--or),#e8c080)",
+      "sauge": "linear-gradient(to right,var(--sauge),#90c090)",
+      "lotus": "linear-gradient(to right,var(--lotus),#d4a0b0)"
+    } %}
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:{{ barres[c.couleur or 'or'] }};"></div>
+
+    {% if c.emoji %}
+    <div style="font-size:2rem;margin-bottom:0.6rem;">{{ c.emoji }}</div>
+    {% endif %}
+
+    <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.2rem;color:var(--nuit);margin-bottom:0.4rem;">
+      {{ c.titre }}
+    </div>
+
+    {% if c.desc %}
+    <div style="font-size:0.72rem;color:var(--terre);line-height:1.6;">{{ c.desc }}</div>
+    {% endif %}
+
+    {% if c.badge %}
+    <span style="display:inline-block;margin-top:0.8rem;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2rem 0.7rem;border-radius:100px;border:1px solid rgba(201,169,110,0.4);color:var(--or);background:rgba(201,169,110,0.1);">
+      {{ c.badge }}
+    </span>
+    {% endif %}
+  </div>
+
+  {% if c.lien %}</a>{% endif %}
+  {% endfor %}
+</div>
+
+<style>
+  @media(max-width:600px) {
+    /* Grille en 1 colonne sur mobile */
+    div[style*="repeat({{ colonnes }}"] { grid-template-columns:1fr !important; }
+  }
+</style>
+{% endmacro %}

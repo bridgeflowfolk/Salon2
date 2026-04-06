@@ -1,0 +1,79 @@
+---
+layout: base.njk
+---
+
+{% from "composants/sep.njk"    import sep %}
+{% from "composants/footer.njk" import footer_bloc %}
+{% from "composants/badge.njk"  import badge %}
+
+{# Hero article #}
+<div class="hero anime" style="animation-delay:0.2s">
+  {% if categorie %}
+  <span class="hero-tag">{{ categorie }} · Bridge &amp; Flow Folk</span>
+  {% endif %}
+  <h1 style="font-size:clamp(1.8rem,6vw,3.5rem);">{{ title }}</h1>
+  {% if date %}
+  <p class="hero-sub">{{ date | date("DD MMMM YYYY") }}</p>
+  {% endif %}
+</div>
+
+{{ sep() }}
+
+{# Corps de l'article #}
+<div style="
+  background:rgba(255,255,255,0.55);
+  border:1px solid rgba(201,169,110,0.3);
+  border-radius:16px;
+  padding:2rem 2.5rem;
+  backdrop-filter:blur(8px);
+  margin-bottom:2rem;
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  animation:glisser-haut 0.7s ease forwards 0.4s;
+">
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--sauge),var(--or),var(--lotus));"></div>
+  <div class="article-contenu">
+    {{ content | safe }}
+  </div>
+</div>
+
+{# Retour au blog #}
+<div style="text-align:center;margin-bottom:2rem;opacity:0;animation:glisser-haut 0.6s ease forwards 0.7s;">
+  <a href="/Salon2/blog/" style="
+    display:inline-flex;align-items:center;gap:0.5rem;
+    font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--terre);text-decoration:none;
+    padding:0.6rem 1.4rem;border-radius:100px;
+    border:1px solid rgba(201,169,110,0.35);
+    transition:all 0.2s;
+  "
+  onmouseover="this.style.background='var(--terre)';this.style.color='#fff'"
+  onmouseout="this.style.background='';this.style.color='var(--terre)'"
+  >← Toutes les actualités</a>
+</div>
+
+{{ footer_bloc() }}
+
+<style>
+  /* Typographie du corps de l'article */
+  .article-contenu { font-family:'Cormorant Garamond',serif; font-size:1.05rem; line-height:1.85; color:var(--nuit); }
+  .article-contenu h2 { font-size:1.5rem; font-weight:600; color:var(--nuit); margin:1.5rem 0 0.6rem; }
+  .article-contenu h3 { font-size:1.2rem; font-weight:600; color:var(--terre); margin:1.2rem 0 0.4rem; }
+  .article-contenu p  { margin-bottom:1rem; }
+  .article-contenu strong { color:var(--terre); font-weight:600; }
+  .article-contenu em { font-style:italic; color:var(--sauge); }
+  .article-contenu ul, .article-contenu ol { padding-left:1.4rem; margin-bottom:1rem; }
+  .article-contenu li { margin-bottom:0.4rem; font-size:0.95rem; }
+  .article-contenu a  { color:var(--sauge); text-decoration:underline; }
+  .article-contenu img { width:100%; border-radius:10px; margin:1rem 0; }
+  .article-contenu blockquote {
+    border-left:3px solid var(--or);
+    padding:0.6rem 1.2rem;
+    margin:1rem 0;
+    font-style:italic;
+    color:var(--terre);
+    background:rgba(201,169,110,0.08);
+    border-radius:0 8px 8px 0;
+  }
+</style>

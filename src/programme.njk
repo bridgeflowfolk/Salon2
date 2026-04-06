@@ -1,0 +1,175 @@
+---
+layout: base.njk
+permalink: /Salon2/programme/
+
+title: "Programme — Salon Bien-Être et Créateurs 2026"
+description: "Programme complet du salon Bien-Être et Créateurs les 4 & 5 Avril 2026 à Nogent-le-Roi. Ateliers et conférences gratuits."
+
+hero:
+  tag:       "Bien-Être et Créateurs · 4 & 5 Avril 2026"
+  titre:     "Programme"
+  sousTitre: "Ateliers & Conférences · Entrée libre"
+
+# Labels des onglets — à mettre à jour chaque année via le CMS
+onglets:
+  jour1:
+    label: "🗓 Samedi 4 Avril"
+    id:    "sam"
+  jour2:
+    label: "🗓 Dimanche 5 Avril"
+    id:    "dim"
+
+samedi:
+  - heure:        "10h15 – 11h00"
+    lieu:         "🏠 Atelier à la Ferme"
+    titre:        "Réveil Sonore Dynamique"
+    intervenant:  "Laurence Guilloux · Musicothérapeute"
+  - heure:        "10h15 – 11h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "Mal dormir n'est pas une fatalité"
+    intervenant:  "Julien Lei Wang · Naturopathe"
+  - heure:        "11h00 – 11h15"
+    lieu:         "⭐ Ferme du Château"
+    titre:        "Promotion du recueil « Survivre et s'épanouir »"
+    intervenant:  "Isabelle Paoletti · Auteure · Poétesse · Artiste"
+    badge:        "🏆 Prix Queen BPW 2025"
+  - heure:        "11h15 – 12h00"
+    lieu:         "🏠 Atelier à la Ferme"
+    titre:        "Séance de Handpan"
+    intervenant:  "Karine Loizon · Énergéticienne"
+  - heure:        "11h15 – 12h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "Apaiser ses émotions avec le magnétisme"
+    intervenant:  "Christophe Limayrac · Magnétiseur · Rebouteux · Auteur"
+  - heure:        "12h15 – 13h00"
+    lieu:         "🏛 Conférence au Château · Groupe de parole"
+    titre:        "Et si l'invisible vous parle, en avez-vous été témoin ?"
+    intervenant:  "Mélanie Mille · Conférencière bénévole"
+  - heure:        "13h00 – 14h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "Médiation animale"
+    intervenant:  "Véronique Chérubin · Coach Équin"
+  - heure:        "14h00 – 15h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "Écrire sa vie, par où commencer quand on ne sait pas par où commencer"
+    intervenant:  "Gaëlle Levesque · Coach Littéraire"
+    badge:        "🏆 Prix Queen BPW 2025"
+
+dimanche:
+  - heure:        "10h15 – 11h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "Les bienfaits de la cuisine Ayurvédique"
+    intervenant:  "Aude Mornas · Institut INAYA"
+  - heure:        "10h15 – 11h00"
+    lieu:         "🏠 Atelier Ferme"
+    titre:        "Yoga Parents-Enfants (3–6 ans)"
+    intervenant:  "Aurélie Bonnet · Le Cocon d'Aurélie"
+  - heure:        "11h15 – 12h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "Alimentation anti-inflammatoire, mythe ou réalité ?"
+    intervenant:  "Françoise Pougnet · Diététicienne-Nutritionniste"
+  - heure:        "13h00 – 14h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "L'Equi Coaching"
+    intervenant:  "Véronique Chérubin · Coach Équin"
+  - heure:        "14h00 – 14h15"
+    lieu:         "⭐ Au Château · Événement"
+    titre:        "Petit Teaser du spectacle « Mon Ami la Plume »"
+    intervenant:  "Isabelle Paoletti · Auteure · Poétesse · Artiste"
+  - heure:        "14h15 – 15h00"
+    lieu:         "🏛 Conférence au Château"
+    titre:        "Comment renaître plus forte après la pire des épreuves..."
+    intervenant:  "Carole Cordier · Artiste"
+  - heure:        "15h00 – 16h00"
+    lieu:         "🏠 Atelier Ferme"
+    titre:        "Initiation aux Bols Chantants"
+    intervenant:  "Les Voyages de Sandie"
+  - heure:        "16h30 – 17h30"
+    lieu:         "🎉 Événement de clôture · Salle de la Ferme"
+    titre:        "⭐ Tirage Tombola"
+    intervenant:  "2850 € de lots · Ne manquez pas ça !"
+    cloture:      true
+
+pageStyles: |
+  .onglets { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; opacity: 0; animation: glisser-haut 0.7s ease forwards 0.4s; }
+  .onglet { padding: 0.6rem 1.5rem; border-radius: 100px; border: 1px solid rgba(201,169,110,0.4); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; background: rgba(255,255,255,0.4); color: var(--nuit); transition: all 0.2s; }
+  .onglet.actif { background: var(--terre); color: #fff; border-color: var(--terre); }
+  .jour { display: none; }
+  .jour.actif { display: block; }
+  .slot { display: grid; grid-template-columns: 80px 1fr; gap: 0 1.5rem; margin-bottom: 1.2rem; opacity: 0; animation: glisser-haut 0.6s ease forwards; }
+  .slot-heure { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--terre); padding-top: 0.2rem; text-align: right; border-right: 2px solid rgba(201,169,110,0.3); padding-right: 1rem; white-space: nowrap; }
+  .slot-contenu { background: rgba(255,255,255,0.55); border: 1px solid rgba(201,169,110,0.25); border-radius: 12px; padding: 1rem 1.2rem; backdrop-filter: blur(8px); }
+  .slot-lieu { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sauge); margin-bottom: 0.3rem; display: block; }
+  .slot-titre { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.1rem; color: var(--nuit); margin-bottom: 0.2rem; }
+  .slot-intervenant { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--terre); }
+  .slot-prix { display: inline-block; margin-top: 0.4rem; background: linear-gradient(135deg,rgba(201,169,110,0.2),rgba(201,120,138,0.15)); border: 1px solid rgba(201,169,110,0.4); font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--or); padding: 0.2rem 0.6rem; border-radius: 100px; }
+  .slot-cloture { background: linear-gradient(135deg,rgba(122,158,126,0.2),rgba(44,44,58,0.05)); border-color: rgba(122,158,126,0.4); }
+  .slot-cloture .slot-titre { color: var(--sauge); }
+  .badge-libre { display: inline-block; background: linear-gradient(135deg, var(--sauge), #5a8e5e); color: #fff; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 100px; margin-bottom: 1.5rem; }
+  .footer-bloc { text-align: center; opacity: 0; animation: glisser-haut 0.8s ease forwards 1s; }
+---
+
+{# Hero #}
+<div class="hero anime" style="animation-delay:0.2s">
+  <span class="hero-tag">{{ hero.tag }}</span>
+  <h1>{{ hero.titre }}</h1>
+  <p class="hero-sub">{{ hero.sousTitre }}</p>
+</div>
+
+<div style="text-align:center;margin-bottom:1.5rem">
+  <span class="badge-libre">✨ Ateliers &amp; conférences offerts</span>
+</div>
+
+{# Onglets — labels issus du front matter, éditables CMS #}
+<div class="onglets">
+  <button class="onglet actif" onclick="afficherJour('{{ onglets.jour1.id }}', this)">{{ onglets.jour1.label }}</button>
+  <button class="onglet"       onclick="afficherJour('{{ onglets.jour2.id }}', this)">{{ onglets.jour2.label }}</button>
+</div>
+
+{# JOUR 1 #}
+<div class="jour actif" id="jour-{{ onglets.jour1.id }}">
+  {% for slot in samedi %}
+  <div class="slot" style="animation-delay:{{ 0.5 + loop.index0 * 0.05 }}s">
+    <div class="slot-heure">{{ slot.heure | replace(" – ", "<br>") | safe }}</div>
+    <div class="slot-contenu{% if slot.cloture %} slot-cloture{% endif %}">
+      <span class="slot-lieu">{{ slot.lieu }}</span>
+      <div class="slot-titre">{{ slot.titre }}</div>
+      <div class="slot-intervenant">{{ slot.intervenant }}</div>
+      {% if slot.badge %}<span class="slot-prix">{{ slot.badge }}</span>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{# JOUR 2 #}
+<div class="jour" id="jour-{{ onglets.jour2.id }}">
+  {% for slot in dimanche %}
+  <div class="slot" style="animation-delay:{{ 0.5 + loop.index0 * 0.05 }}s">
+    <div class="slot-heure">{{ slot.heure | replace(" – ", "<br>") | safe }}</div>
+    <div class="slot-contenu{% if slot.cloture %} slot-cloture{% endif %}">
+      <span class="slot-lieu">{{ slot.lieu }}</span>
+      <div class="slot-titre">{{ slot.titre }}</div>
+      <div class="slot-intervenant">{{ slot.intervenant }}</div>
+      {% if slot.badge %}<span class="slot-prix">{{ slot.badge }}</span>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{# Footer #}
+<div class="footer-bloc" style="margin-top:2rem;">
+  <a class="fb-lien" href="https://www.facebook.com/people/Bridge-Flow-Folk-BFF/61587252715739/" target="_blank" rel="noopener noreferrer">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+    Suivre Bridge &amp; Flow Folk
+  </a>
+  <footer>© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28) · 06 18 29 18 73</footer>
+</div>
+
+<script>
+  function afficherJour(id, btn) {
+    document.querySelectorAll(".jour").forEach(j => j.classList.remove("actif"));
+    document.querySelectorAll(".onglet").forEach(b => b.classList.remove("actif"));
+    document.getElementById("jour-" + id).classList.add("actif");
+    btn.classList.add("actif");
+  }
+</script>

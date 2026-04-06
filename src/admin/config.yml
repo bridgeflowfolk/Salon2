@@ -1,0 +1,358 @@
+# ════════════════════════════════════════════════════════════════
+# config.yml — Sveltia CMS · Bridge & Flow Folk
+# ════════════════════════════════════════════════════════════════
+
+backend:
+  name: github
+  repo: bridgeflowfolk/Salon        # ← adapter si besoin
+  branch: main
+  base_url: https://sveltia-cms-auth.pages.dev
+  app_id: TON_CLIENT_ID_ICI         # ← coller le Client ID OAuth GitHub
+
+# Photos uploadées via le CMS → src/static/photos/
+media_folder: "src/static/photos"
+public_folder: "/Salon2/photos"
+locale: fr
+
+# ════════════════════════════════════════════════════════════════
+collections:
+# ════════════════════════════════════════════════════════════════
+
+  # ── 1. EXPOSANTS ─────────────────────────────────────────────
+  # Un fichier Markdown par exposant dans src/exposants/
+  # "Nouvel exposant" dans le CMS = nouvelle fiche
+  - name: exposants
+    label: "🏪 Exposants"
+    label_singular: "Exposant"
+    folder: src/exposants
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    summary: "{{nom}} — {{categorie}}"
+    fields:
+      - { label: "Titre (technique)", name: title, widget: string, hint: "Identique au nom complet" }
+      - { label: "Nom affiché", name: nom, widget: string }
+      - label: "Catégorie"
+        name: categorie
+        widget: select
+        hint: "Utilisée pour filtrer les exposants sur la page"
+        options:
+          - Sophrologie
+          - Musicothérapie
+          - Naturopathie
+          - Massages
+          - Yoga
+          - Équicoaching
+          - Magnétisme
+          - Hypnothérapie
+          - Art Thérapie
+          - Bijoux
+          - Bougies
+          - Savonnerie
+          - Livres & Écriture
+          - Alimentation
+          - Autre
+      - { label: "Description", name: description, widget: text, hint: "2-3 phrases affichées sur la carte" }
+      - { label: "Stand", name: stand, widget: string, required: false, hint: "Ex: A1, B3" }
+      - { label: "Emoji (si pas de photo)", name: emoji, widget: string, required: false, default: "🌿" }
+      - { label: "Photo", name: photo, widget: image, required: false, media_folder: "/src/static/exposants", public_folder: "/Salon2/exposants", hint: "Format carré recommandé" }
+      - { label: "Site web", name: site, widget: string, required: false }
+
+  # ── 2. BLOG / ACTUALITÉS ──────────────────────────────────────
+  # Un fichier Markdown par article dans src/blog/
+  - name: articles
+    label: "📰 Blog / Actualités"
+    label_singular: "Article"
+    folder: src/blog
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    summary: "{{date}} — {{title}}"
+    fields:
+      - { label: "Titre", name: title, widget: string }
+      - { label: "Extrait", name: extrait, widget: text, hint: "Affiché dans la liste des articles, 2-3 phrases" }
+      - { label: "Date de publication", name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - label: "Catégorie"
+        name: categorie
+        widget: select
+        required: false
+        options: [Annonce, Coulisses, Partenaire, Après-salon, Association]
+      - { label: "Contenu", name: body, widget: markdown }
+
+  # ── 3. PAGES DU SITE ──────────────────────────────────────────
+  - name: pages
+    label: "📄 Pages du site"
+    label_singular: "Page"
+    files:
+
+      # ── ACCUEIL ──────────────────────────────────────────────
+      - name: accueil
+        label: "🏠 Accueil"
+        file: src/index.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - label: "Texte hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Tag", name: tag, widget: string }
+              - { label: "Titre ligne 1", name: titre1, widget: string }
+              - { label: "Mot en italique", name: titreMot, widget: string }
+              - { label: "Titre ligne 2", name: titre2, widget: string }
+              - { label: "Sous-titre", name: sousTitre, widget: string }
+          - label: "Dates de l'événement"
+            name: evenement
+            widget: object
+            fields:
+              - { label: "Début", name: dateDebut, widget: datetime, date_format: "YYYY-MM-DD", time_format: "HH:mm:ss", format: "YYYY-MM-DDTHH:mm:ss+02:00" }
+              - { label: "Fin", name: dateFin, widget: datetime, date_format: "YYYY-MM-DD", time_format: "HH:mm:ss", format: "YYYY-MM-DDTHH:mm:ss+02:00" }
+              - { label: "Lieu", name: lieu, widget: string }
+              - { label: "Ville", name: ville, widget: string }
+              - { label: "Code postal", name: codePostal, widget: string }
+              - { label: "Nombre d'exposants", name: nbExposants, widget: number }
+              - { label: "Horaires (ex: 10h – 18h)", name: heures, widget: string }
+          - label: "Boutons d'action"
+            name: cta
+            widget: object
+            fields:
+              - { label: "Lien feuillet PDF", name: feuillet, widget: string }
+              - { label: "Lien tombola HelloAsso", name: tombola, widget: string }
+          - label: "Tags exposants"
+            name: tags_salon
+            widget: list
+            field: { label: "Tag", name: tag, widget: string }
+
+      # ── PROGRAMME ────────────────────────────────────────────
+      - name: programme
+        label: "📅 Programme"
+        file: src/programme.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - label: "Labels des onglets"
+            name: onglets
+            widget: object
+            hint: "Mettre à jour les dates à chaque édition du salon"
+            fields:
+              - label: "Jour 1"
+                name: jour1
+                widget: object
+                fields:
+                  - { label: "Libellé bouton (ex: 🗓 Samedi 5 Avril)", name: label, widget: string }
+                  - { label: "Identifiant — ne pas changer", name: id, widget: string, default: "sam" }
+              - label: "Jour 2"
+                name: jour2
+                widget: object
+                fields:
+                  - { label: "Libellé bouton (ex: 🗓 Dimanche 6 Avril)", name: label, widget: string }
+                  - { label: "Identifiant — ne pas changer", name: id, widget: string, default: "dim" }
+          - label: "Créneaux Samedi"
+            name: samedi
+            widget: list
+            fields:
+              - { label: "Horaire (ex: 10h15 – 11h00)", name: heure, widget: string }
+              - { label: "Lieu / salle", name: lieu, widget: string }
+              - { label: "Titre", name: titre, widget: string }
+              - { label: "Intervenant(e)", name: intervenant, widget: string }
+              - { label: "Badge (laisser vide si aucun)", name: badge, widget: string, required: false }
+              - { label: "Clôture du salon ?", name: cloture, widget: boolean, default: false, required: false }
+          - label: "Créneaux Dimanche"
+            name: dimanche
+            widget: list
+            fields:
+              - { label: "Horaire (ex: 10h15 – 11h00)", name: heure, widget: string }
+              - { label: "Lieu / salle", name: lieu, widget: string }
+              - { label: "Titre", name: titre, widget: string }
+              - { label: "Intervenant(e)", name: intervenant, widget: string }
+              - { label: "Badge (laisser vide si aucun)", name: badge, widget: string, required: false }
+              - { label: "Clôture du salon ?", name: cloture, widget: boolean, default: false, required: false }
+
+      # ── TOMBOLA ──────────────────────────────────────────────
+      - name: tombola
+        label: "🎟️ Tombola"
+        file: src/tombola.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - { label: "Lien HelloAsso", name: lien_helloasso, widget: string }
+          - label: "Montant total"
+            name: total
+            widget: object
+            fields:
+              - { label: "Montant affiché (ex: 2 850 €)", name: montant, widget: string }
+              - { label: "Sous-label", name: label, widget: string }
+          - label: "Top 3 lots"
+            name: podium
+            widget: list
+            fields:
+              - { label: "Rang (ex: 1er lot)", name: rang, widget: string }
+              - { label: "Emoji", name: emoji, widget: string }
+              - { label: "Titre du lot", name: titre, widget: string }
+              - { label: "Description", name: desc, widget: text }
+              - { label: "Valeur (ex: 175 €)", name: valeur, widget: string }
+              - { label: "Style visuel", name: classe, widget: select, options: [premier, deuxieme, troisieme] }
+          - label: "Autres lots"
+            name: autres_lots
+            widget: list
+            field: { label: "Tag (ex: 💆 Massages)", name: tag, widget: string }
+          - label: "Tirage"
+            name: tirage
+            widget: object
+            fields:
+              - { label: "Date et heure", name: date, widget: string }
+              - { label: "Lieu", name: lieu, widget: string }
+              - { label: "Prix du ticket", name: ticket, widget: string }
+              - { label: "Cause solidaire", name: cause, widget: string }
+
+      # ── SAVONS ───────────────────────────────────────────────
+      - name: savons
+        label: "🧼 Savons"
+        file: src/savon.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - label: "Prix"
+            name: prix
+            widget: object
+            fields:
+              - { label: "Montant (ex: 5 €)", name: montant, widget: string }
+              - { label: "Sous-label", name: label, widget: string }
+          - label: "Signes astrologiques"
+            name: signes
+            widget: list
+            fields:
+              - { label: "Symbole unicode", name: symbole, widget: string }
+              - { label: "Nom", name: nom, widget: string }
+              - { label: "Dates", name: dates, widget: string }
+              - { label: "Élément", name: element, widget: select, options: [Feu, Terre, Air, Eau] }
+              - { label: "Classe CSS", name: classe, widget: select, options: [feu, terre, air, eau] }
+
+      # ── BUVETTE ──────────────────────────────────────────────
+      - name: buvette
+        label: "☕ Buvette"
+        file: src/buvette.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - label: "Snacks"
+            name: snacks
+            widget: list
+            fields:
+              - { label: "Produit", name: nom, widget: string }
+              - { label: "Prix", name: prix, widget: string }
+          - label: "Boissons"
+            name: boissons
+            widget: list
+            fields:
+              - { label: "Boisson", name: nom, widget: string }
+              - { label: "Prix", name: prix, widget: string }
+
+      # ── FOOD TRUCK ───────────────────────────────────────────
+      - name: foodtruck
+        label: "🚚 Food Truck"
+        file: src/foodtruck.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Tag", name: tag, widget: string }
+              - { label: "Titre", name: titre, widget: string }
+              - { label: "Titre italique", name: titreEm, widget: string }
+              - { label: "Sous-titre", name: sousTitre, widget: string }
+
+      # ── GALERIE ──────────────────────────────────────────────
+      - name: galerie
+        label: "📸 Galerie"
+        file: src/galerie.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - label: "Photos"
+            name: photos
+            widget: object
+            fields:
+              - { label: "Dossier", name: dossier, widget: string, default: "/Salon2/photos/" }
+              - label: "Liste des photos"
+                name: fichiers
+                widget: list
+                fields:
+                  - { label: "Nom du fichier (ex: ma-photo.jpg)", name: nom, widget: string }
+                  - { label: "Description (accessibilité)", name: alt, widget: string }
+
+      # ── À PROPOS ─────────────────────────────────────────────
+      - name: apropos
+        label: "🌿 À propos"
+        file: src/apropos.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - { label: "Citation finale", name: citation, widget: text }
+          - label: "Fondatrices"
+            name: fondatrices
+            widget: list
+            fields:
+              - { label: "Emoji", name: emoji, widget: string }
+              - { label: "Nom", name: nom, widget: string }
+              - { label: "Rôle", name: role, widget: string }
+          - label: "Piliers BFF"
+            name: piliers
+            widget: list
+            fields:
+              - { label: "Mot clé (ex: Bridge)", name: mot, widget: string }
+              - { label: "Label", name: label, widget: string }
+              - { label: "Description", name: desc, widget: text }
+              - { label: "Dégradé CSS", name: couleur, widget: string }
+          - label: "Sections de contenu"
+            name: sections
+            widget: list
+            fields:
+              - { label: "Emoji", name: icone, widget: string }
+              - { label: "Titre", name: titre, widget: string }
+              - { label: "Texte", name: texte, widget: text }
+
+      # ── PAGE EXPOSANTS (réglages) ─────────────────────────────
+      - name: page-exposants
+        label: "🏪 Page Exposants — réglages"
+        file: src/exposants.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+          - label: "Chiffres clés"
+            name: chiffres
+            widget: list
+            fields:
+              - { label: "Valeur (ex: 38)", name: valeur, widget: string }
+              - { label: "Libellé (ex: exposants)", name: unite, widget: string }
+              - { label: "Emoji", name: emoji, widget: string, required: false }
+              - { label: "Couleur", name: couleur, widget: select, options: [or, sauge, lotus] }
+
+      # ── PAGE BLOG (réglages) ──────────────────────────────────
+      - name: page-blog
+        label: "📰 Blog — réglages"
+        file: src/blog.njk
+        fields:
+          - { label: "Titre SEO", name: title, widget: string }
+          - { label: "Description SEO", name: description, widget: text }
+
+  # ── 4. NAVIGATION ────────────────────────────────────────────
+  - name: navigation
+    label: "🔗 Navigation"
+    files:
+      - name: menu
+        label: "Menu du site"
+        file: src/_data/navigation.json
+        hint: "Ajouter une entrée = nouveau lien dans le menu desktop ET mobile automatiquement"
+        fields:
+          - label: "Liens du menu"
+            name: items
+            widget: list
+            fields:
+              - { label: "Libellé", name: label, widget: string }
+              - { label: "URL (ex: /Salon2/ma-page/)", name: url, widget: string }
+              - { label: "Emoji", name: emoji, widget: string }

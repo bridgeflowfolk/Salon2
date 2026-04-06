@@ -1,0 +1,258 @@
+---
+layout: base.njk
+permalink: /Salon2/foodtruck/
+
+title: "Food Truck O'Plateau — Bien-Être et Créateurs 2026"
+description: "Restauration sur place au salon : hot dogs, wraps, risotto et burgers maison. Formules à partir de 15 €. Food Truck O'Plateau."
+
+hero:
+  tag:       "Bien-Être et Créateurs · Sur place"
+  titre:     "Food Truck"
+  titreEm:   "O'Plateau"
+  sousTitre: "Cuisine maison · Formules à partir de 15 €"
+
+pageStyles: |
+  .ft-section {
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: glisser-haut 0.7s ease forwards;
+  }
+  .ft-section-titre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300;
+    color: var(--nuit); letter-spacing: 0.04em;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .ft-section-titre::after {
+    content: ''; flex: 1;
+    height: 1px; background: rgba(201,169,110,0.3);
+  }
+  .ft-grille {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+  .ft-grille.triple { grid-template-columns: repeat(3, 1fr); }
+  .ft-carte {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; padding: 1.5rem 1.2rem;
+    backdrop-filter: blur(8px);
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .ft-carte:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(160,132,92,0.15); }
+  .ft-carte::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(to right, var(--or), #e8c080);
+  }
+  .ft-carte.vert::before { background: linear-gradient(to right, var(--sauge), #90c090); }
+  .ft-carte-nom {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600;
+    color: var(--nuit); margin-bottom: 0.4rem;
+  }
+  .ft-carte-desc { font-size: 0.72rem; color: var(--terre); line-height: 1.55; margin-bottom: 1rem; }
+  .ft-carte-prix { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--or); }
+  .ft-carte-prix-detail { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terre); margin-left: 0.3rem; }
+  .ft-formule {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 16px; padding: 1.8rem 2rem;
+    backdrop-filter: blur(8px);
+    position: relative; overflow: hidden;
+    text-align: center;
+    opacity: 0; animation: glisser-haut 0.7s ease forwards;
+  }
+  .ft-formule::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(to right, var(--sauge), var(--or), var(--lotus));
+  }
+  .ft-formule-titre { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--nuit); margin-bottom: 0.5rem; }
+  .ft-formule-contenu { font-size: 0.8rem; color: var(--terre); line-height: 1.8; margin-bottom: 1rem; }
+  .ft-formule-prix { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; color: var(--or); }
+  .ft-extras { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .ft-extra-bloc {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px; padding: 1.2rem 1.5rem;
+    backdrop-filter: blur(8px);
+  }
+  .ft-extra-titre { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terre); margin-bottom: 0.8rem; display: block; }
+  .item-liste { list-style: none; }
+  .item-liste li { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(201,169,110,0.15); font-size: 0.78rem; }
+  .item-liste li:last-child { border-bottom: none; }
+  .item-nom { color: var(--nuit); }
+  .item-prix { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--terre); font-weight: 600; }
+  .ft-tabs { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .ft-tab {
+    flex: 1; padding: 0.7rem 1rem;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--terre);
+    cursor: pointer; transition: all 0.25s; text-align: center;
+  }
+  .ft-tab.actif {
+    background: linear-gradient(135deg, var(--or), #e8c080);
+    color: #fff; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(201,169,110,0.35);
+  }
+  .ft-menu-panel { display: none; }
+  .ft-menu-panel.visible { display: block; }
+  .footer-bloc { text-align: center; opacity: 0; animation: glisser-haut 0.8s ease forwards 1.2s; }
+  @media(max-width: 600px) {
+    .ft-grille, .ft-grille.triple, .ft-extras { grid-template-columns: 1fr; }
+  }
+---
+
+{# Hero #}
+<div class="hero anime" style="animation-delay:0.2s">
+  <span class="hero-tag">{{ hero.tag }}</span>
+  <h1>{{ hero.titre }}<br><em>{{ hero.titreEm }}</em></h1>
+  <p class="hero-sub">{{ hero.sousTitre }}</p>
+</div>
+
+<div class="sep">
+  <div class="sep-l"></div><div class="sep-d"></div>
+  <div class="sep-d" style="background:var(--sauge)"></div>
+  <div class="sep-d"></div><div class="sep-r"></div>
+</div>
+
+{# Tabs #}
+<div class="ft-tabs">
+  <button class="ft-tab actif" onclick="afficherMenu('carte1', this)">🌯 Hot Dogs &amp; Wraps</button>
+  <button class="ft-tab"       onclick="afficherMenu('carte2', this)">🍔 Burgers maison</button>
+</div>
+
+{# ══ CARTE 1 : Hot Dogs, Wraps, Risotto ══ #}
+<div id="carte1" class="ft-menu-panel visible">
+
+  <div class="ft-section" style="animation-delay:0.4s">
+    <div class="ft-section-titre">🌭 À la carte</div>
+    <div class="ft-grille">
+      <div class="ft-carte">
+        <div class="ft-carte-nom">Le Hot Dog</div>
+        <div class="ft-carte-desc">Servi seul ou avec frites maison</div>
+        <div><span class="ft-carte-prix">8 €</span><span class="ft-carte-prix-detail">· avec frites : 11,50 €</span></div>
+      </div>
+      <div class="ft-carte">
+        <div class="ft-carte-nom">Le Wrap</div>
+        <div class="ft-carte-desc">Servi seul ou avec frites maison</div>
+        <div><span class="ft-carte-prix">8 €</span><span class="ft-carte-prix-detail">· avec frites : 11,50 €</span></div>
+      </div>
+      <div class="ft-carte" style="grid-column: 1 / -1;">
+        <div class="ft-carte-nom">Risotto Poulet Curry</div>
+        <div class="ft-carte-desc">Plat chaud du jour, généreux et parfumé</div>
+        <div><span class="ft-carte-prix">10 €</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-section" style="animation-delay:0.55s">
+    <div class="ft-section-titre">🥤 Boissons &amp; Desserts</div>
+    <div class="ft-extras">
+      <div class="ft-extra-bloc">
+        <span class="ft-extra-titre">Boissons</span>
+        <ul class="item-liste">
+          <li><span class="item-nom">Soda</span><span class="item-prix">2 €</span></li>
+          <li><span class="item-nom">Eau</span><span class="item-prix">1,50 €</span></li>
+          <li><span class="item-nom">Café</span><span class="item-prix">1,50 €</span></li>
+        </ul>
+      </div>
+      <div class="ft-extra-bloc">
+        <span class="ft-extra-titre">Dessert</span>
+        <ul class="item-liste">
+          <li><span class="item-nom">Dessert maison</span><span class="item-prix">3,50 €</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-formule" style="animation-delay:0.7s; margin-top:1.5rem;">
+    <div class="ft-formule-titre">✨ La Formule</div>
+    <div class="ft-formule-contenu">
+      1 Wrap <em>ou</em> Hot Dog<br>
+      + Frites maison <em>ou</em> Risotto<br>
+      + 1 Dessert maison + 1 Boisson
+    </div>
+    <div class="ft-formule-prix">15 €</div>
+  </div>
+</div>
+
+{# ══ CARTE 2 : Burgers ══ #}
+<div id="carte2" class="ft-menu-panel">
+
+  <div class="ft-section" style="animation-delay:0.4s">
+    <div class="ft-section-titre">🍔 Nos burgers · frites maison incluses · 12 €</div>
+    <div class="ft-grille triple">
+      <div class="ft-carte">
+        <div class="ft-carte-nom">L'Emmental</div>
+        <div class="ft-carte-desc">Steak de bœuf, emmental, oignons frits, lard grillé, salade, sauce maison (base mayo ail fumé, paprika fumé)</div>
+        <div><span class="ft-carte-prix">12 €</span><span class="ft-carte-prix-detail">avec frites</span></div>
+      </div>
+      <div class="ft-carte">
+        <div class="ft-carte-nom">Le Cheddar</div>
+        <div class="ft-carte-desc">Steak de bœuf, cheddar, tomates, oignons rouges, salade, sauce barbecue</div>
+        <div><span class="ft-carte-prix">12 €</span><span class="ft-carte-prix-detail">avec frites</span></div>
+      </div>
+      <div class="ft-carte vert">
+        <div class="ft-carte-nom">Le Végétarien</div>
+        <div class="ft-carte-desc">Galette de pomme de terre, cheddar, tomates, salade, sauce maison (base mayo ail fumé, paprika fumé)</div>
+        <div><span class="ft-carte-prix">12 €</span><span class="ft-carte-prix-detail">avec frites</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-section" style="animation-delay:0.55s">
+    <div class="ft-section-titre">🥤 Boissons &amp; Desserts</div>
+    <div class="ft-extras">
+      <div class="ft-extra-bloc">
+        <span class="ft-extra-titre">Boissons</span>
+        <ul class="item-liste">
+          <li><span class="item-nom">Soda</span><span class="item-prix">2 €</span></li>
+          <li><span class="item-nom">Eau</span><span class="item-prix">1,50 €</span></li>
+          <li><span class="item-nom">Café</span><span class="item-prix">1,50 €</span></li>
+        </ul>
+      </div>
+      <div class="ft-extra-bloc">
+        <span class="ft-extra-titre">Dessert</span>
+        <ul class="item-liste">
+          <li><span class="item-nom">Dessert maison</span><span class="item-prix">3,50 €</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-formule" style="animation-delay:0.7s; margin-top:1.5rem;">
+    <div class="ft-formule-titre">✨ La Formule</div>
+    <div class="ft-formule-contenu">
+      1 Burger + Frites maison<br>
+      + 1 Dessert maison + 1 Boisson
+    </div>
+    <div class="ft-formule-prix">15 €</div>
+  </div>
+</div>
+
+{# Footer #}
+<div class="footer-bloc" style="margin-top:2rem;">
+  <a class="fb-lien" href="https://www.facebook.com/people/Bridge-Flow-Folk-BFF/61587252715739/" target="_blank" rel="noopener noreferrer">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+    Suivre Bridge &amp; Flow Folk
+  </a>
+  <footer>© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28) · 06 18 29 18 73</footer>
+</div>
+
+<script>
+  function afficherMenu(id, btn) {
+    document.querySelectorAll('.ft-menu-panel').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.ft-tab').forEach(t => t.classList.remove('actif'));
+    document.getElementById(id).classList.add('visible');
+    btn.classList.add('actif');
+  }
+</script>

@@ -1,0 +1,53 @@
+{#
+  Composant : bloc info / citation / annonce centré
+  Usage :
+    {% from "composants/bloc-info.njk" import bloc_info %}
+
+    {{ bloc_info("Une pause conviviale vous attend !<br>Ouvert 10h–18h.") }}
+
+    {{ bloc_info(
+         texte="Bridge & Flow Folk, c'est avant tout...",
+         couleur="arc-en-ciel",   (sauge | or | lotus | arc-en-ciel (défaut))
+         italic=true,
+         delay="1s"
+       )
+    }}
+
+  Paramètres :
+    texte    (str)  — Contenu HTML accepté
+    couleur  (str)  — Couleur barre top : arc-en-ciel | sauge | or | lotus
+    italic   (bool) — Texte en italique Cormorant, défaut true
+    delay    (str)  — Animation-delay
+#}
+
+{% macro bloc_info(texte, couleur="arc-en-ciel", italic=true, delay="0.8s") %}
+{% set barres = {
+  "arc-en-ciel": "linear-gradient(to right, var(--sauge), var(--or), var(--lotus))",
+  "sauge": "linear-gradient(to right, var(--sauge), #90c090)",
+  "or":    "linear-gradient(to right, var(--or), #e8c080)",
+  "lotus": "linear-gradient(to right, var(--lotus), #d4a0b0)"
+} %}
+<div style="
+  background:rgba(255,255,255,0.55);
+  border:1px solid rgba(201,169,110,0.3);
+  border-radius:16px;
+  padding:1.5rem 2rem;
+  backdrop-filter:blur(8px);
+  text-align:center;
+  margin-bottom:2rem;
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  animation:glisser-haut 0.7s ease forwards {{ delay }};
+">
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:{{ barres[couleur] }};"></div>
+  <p style="
+    font-family:'Cormorant Garamond',serif;
+    {% if italic %}font-style:italic;{% endif %}
+    font-size:1.1rem;
+    color:var(--terre);
+    line-height:1.7;
+    margin:0;
+  ">{{ texte | safe }}</p>
+</div>
+{% endmacro %}

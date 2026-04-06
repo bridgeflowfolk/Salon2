@@ -1,0 +1,154 @@
+---
+layout: base.njk
+permalink: /Salon2/savon/
+
+title: "Savons Astrologiques — Bien-Être et Créateurs 2026"
+description: "12 savons artisanaux aux signes astrologiques, fabriqués à la main. 5 € pièce, disponibles sur place au salon Bien-Être et Créateurs."
+
+hero:
+  tag:       "Bien-Être et Créateurs · Savonnerie Artisanale"
+  titre:     "Savons aux"
+  titreEm:   "Signes"
+  sousTitre: "12 signes astrologiques · Faits à la main"
+
+prix:
+  montant: "5 €"
+  label:   "par savon · disponibles sur place"
+
+signes:
+  - symbole: "♈"
+    nom:     "Bélier"
+    dates:   "21 Mars – 19 Avril"
+    element: "Feu"
+    classe:  "feu"
+  - symbole: "♉"
+    nom:     "Taureau"
+    dates:   "20 Avril – 20 Mai"
+    element: "Terre"
+    classe:  "terre"
+  - symbole: "♊"
+    nom:     "Gémeaux"
+    dates:   "21 Mai – 21 Juin"
+    element: "Air"
+    classe:  "air"
+  - symbole: "♋"
+    nom:     "Cancer"
+    dates:   "22 Juin – 22 Juillet"
+    element: "Eau"
+    classe:  "eau"
+  - symbole: "♌"
+    nom:     "Lion"
+    dates:   "23 Juillet – 22 Août"
+    element: "Feu"
+    classe:  "feu"
+  - symbole: "♍"
+    nom:     "Vierge"
+    dates:   "23 Août – 22 Septembre"
+    element: "Terre"
+    classe:  "terre"
+  - symbole: "♎"
+    nom:     "Balance"
+    dates:   "23 Septembre – 23 Octobre"
+    element: "Air"
+    classe:  "air"
+  - symbole: "♏"
+    nom:     "Scorpion"
+    dates:   "24 Octobre – 21 Novembre"
+    element: "Eau"
+    classe:  "eau"
+  - symbole: "♐"
+    nom:     "Sagittaire"
+    dates:   "22 Novembre – 21 Décembre"
+    element: "Feu"
+    classe:  "feu"
+  - symbole: "♑"
+    nom:     "Capricorne"
+    dates:   "22 Décembre – 19 Janvier"
+    element: "Terre"
+    classe:  "terre"
+  - symbole: "♒"
+    nom:     "Verseau"
+    dates:   "20 Janvier – 18 Février"
+    element: "Air"
+    classe:  "air"
+  - symbole: "♓"
+    nom:     "Poissons"
+    dates:   "19 Février – 20 Mars"
+    element: "Eau"
+    classe:  "eau"
+
+pageStyles: |
+  .prix-badge { text-align: center; margin-bottom: 2rem; opacity: 0; animation: glisser-haut 0.7s ease forwards 0.4s; }
+  .prix-gros { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem,10vw,5rem); font-weight: 300; color: var(--terre); }
+  .prix-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--terre); display: block; margin-top: 0.2rem; }
+  .signes-grille { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+  .signe-carte { background: rgba(255,255,255,0.55); border: 1px solid rgba(201,169,110,0.3); border-radius: 14px; padding: 1.2rem 0.8rem; text-align: center; backdrop-filter: blur(8px); position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; opacity: 0; animation: glisser-haut 0.5s ease forwards; }
+  .signe-carte:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(160,132,92,0.2); }
+  .signe-carte::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .feu::before   { background: linear-gradient(to right,#e07040,#f0a060); }
+  .terre::before { background: linear-gradient(to right,#7a9e7e,#a0c0a0); }
+  .air::before   { background: linear-gradient(to right,#90b0d0,#b0d0f0); }
+  .eau::before   { background: linear-gradient(to right,#6080b0,#8090d0); }
+  .signe-symbole { font-size: 1.8rem; display: block; margin-bottom: 0.3rem; }
+  .signe-nom { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: 1.1rem; color: var(--nuit); }
+  .signe-dates { font-size: 0.55rem; letter-spacing: 0.1em; color: rgba(44,44,58,0.5); margin-top: 0.2rem; display: block; }
+  .signe-element { display: inline-block; margin-top: 0.5rem; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px; }
+  .feu .signe-element   { background: rgba(224,112,64,0.15); color: #c05030; }
+  .terre .signe-element { background: rgba(122,158,126,0.15); color: #5a8e5e; }
+  .air .signe-element   { background: rgba(144,176,208,0.15); color: #5080a0; }
+  .eau .signe-element   { background: rgba(96,128,176,0.15); color: #4060a0; }
+  .artisanal-bloc { background: rgba(255,255,255,0.55); border: 1px solid rgba(201,169,110,0.3); border-radius: 16px; padding: 2rem; text-align: center; backdrop-filter: blur(8px); margin-bottom: 2rem; opacity: 0; animation: glisser-haut 0.7s ease forwards 1.5s; position: relative; overflow: hidden; }
+  .artisanal-bloc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--sauge), var(--or), var(--lotus)); }
+  .artisanal-titre { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--nuit); margin-bottom: 0.8rem; }
+  .artisanal-desc { font-size: 0.75rem; letter-spacing: 0.05em; color: rgba(44,44,58,0.65); line-height: 1.8; }
+  .footer-bloc { text-align: center; opacity: 0; animation: glisser-haut 0.8s ease forwards 1.6s; }
+  @media(max-width: 480px) { .signes-grille { grid-template-columns: repeat(2,1fr); } }
+---
+
+{# Hero #}
+<div class="hero anime" style="animation-delay:0.2s">
+  <span class="hero-tag">{{ hero.tag }}</span>
+  <h1>{{ hero.titre }}<br><em>{{ hero.titreEm }}</em></h1>
+  <p class="hero-sub">{{ hero.sousTitre }}</p>
+</div>
+
+<div class="prix-badge">
+  <div class="prix-gros">{{ prix.montant }}</div>
+  <span class="prix-label">{{ prix.label }}</span>
+</div>
+
+<div class="sep">
+  <div class="sep-l"></div><div class="sep-d"></div>
+  <div class="sep-d" style="background:var(--sauge)"></div>
+  <div class="sep-d"></div><div class="sep-r"></div>
+</div>
+
+{# Les 12 signes #}
+<div class="signes-grille">
+  {% for s in signes %}
+  <div class="signe-carte {{ s.classe }}" style="animation-delay:{{ 0.5 + loop.index0 * 0.05 }}s">
+    <span class="signe-symbole">{{ s.symbole }}</span>
+    <div class="signe-nom">{{ s.nom }}</div>
+    <span class="signe-dates">{{ s.dates }}</span>
+    <span class="signe-element">{{ s.element }}</span>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="artisanal-bloc">
+  <div class="artisanal-titre">🧼 Savonnerie artisanale</div>
+  <div class="artisanal-desc">
+    Chaque savon est fabriqué à la main avec des ingrédients naturels.<br>
+    Une création unique, personnalisée selon votre signe astrologique.<br>
+    Idéal comme cadeau ou pour prendre soin de soi au quotidien.
+  </div>
+</div>
+
+{# Footer #}
+<div class="footer-bloc">
+  <a class="fb-lien" href="https://www.facebook.com/people/Bridge-Flow-Folk-BFF/61587252715739/" target="_blank" rel="noopener noreferrer">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+    Suivre Bridge &amp; Flow Folk
+  </a>
+  <footer>© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28) · 06 18 29 18 73</footer>
+</div>
