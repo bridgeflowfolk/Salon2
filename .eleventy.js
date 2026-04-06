@@ -1,0 +1,38 @@
+module.exports = function (eleventyConfig) {
+
+  // ── Assets statiques ─────────────────────────────────────────
+  eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/admin");
+  eleventyConfig.addPassthroughCopy({ "src/static": "/" });
+
+  // ── Filtre : lien actif dans la nav ──────────────────────────
+  eleventyConfig.addFilter("isActive", (navUrl, pageUrl) => {
+    return pageUrl === navUrl || pageUrl.startsWith(navUrl + "/");
+  });
+
+  // ── Filtre : formatage de date pour les articles de blog ─────
+  eleventyConfig.addFilter("date", (value, format) => {
+    const d = new Date(value);
+    if (isNaN(d)) return value;
+    const mois = ["janvier","février","mars","avril","mai","juin",
+                  "juillet","août","septembre","octobre","novembre","décembre"];
+    const moisC = ["jan.","fév.","mars","avr.","mai","juin",
+                   "juil.","août","sept.","oct.","nov.","déc."];
+    const j = String(d.getDate()).padStart(2,"0");
+    const m = d.getMonth();
+    const a = d.getFullYear();
+    switch(format) {
+      case "DD MMMM YYYY": return j+" "+mois[m]+" "+a;
+      case "DD MMM YYYY":  return j+" "+moisC[m]+" "+a;
+      case "YYYY-MM-DD":   return a+"-"+String(m+1).padStart(2,"0")+"-"+j;
+      default:             return j+" "+mois[m]+" "+a;
+    }
+  });
+
+  return {
+    dir: { input:"src", output:"_site", includes:"_includes", data:"_data" },
+    templateFormats: ["njk","html","md"],
+    htmlTemplateEngine: "njk",
+    markdownTemplateEngine: "njk",
+  };
+};
