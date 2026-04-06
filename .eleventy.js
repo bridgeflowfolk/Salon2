@@ -10,7 +10,7 @@ module.exports = function (eleventyConfig) {
     return pageUrl === navUrl || pageUrl.startsWith(navUrl + "/");
   });
 
-  // ── Filtre : formatage de date pour les articles de blog ─────
+  // ── Filtre : formatage de date pour blog ─────────────────────
   eleventyConfig.addFilter("date", (value, format) => {
     const d = new Date(value);
     if (isNaN(d)) return value;
@@ -30,6 +30,7 @@ module.exports = function (eleventyConfig) {
   });
 
   return {
+    pathPrefix: "/Salon2/",
     dir: { input:"src", output:"_site", includes:"_includes", data:"_data" },
     templateFormats: ["njk","html","md"],
     htmlTemplateEngine: "njk",

@@ -64,7 +64,7 @@
 
     {# Liens desktop — générés depuis navigation.json #}
     <div class="nav-liens" role="list">
-      {% for item in navigation %}
+      {% for item in navigation.items %}
       <a href="{{ item.url }}"
          role="listitem"
          {% if page.url == item.url %}class="actif" aria-current="page"{% endif %}>
@@ -82,7 +82,7 @@
 
   {# Menu mobile — même source navigation.json #}
   <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Menu mobile">
-    {% for item in navigation %}
+    {% for item in navigation.items %}
     <a href="{{ item.url }}" onclick="fermerMenu()">
       {{ item.emoji }} {{ item.label }}
     </a>

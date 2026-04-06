@@ -1,12 +1,14 @@
-[
-  { "label": "Accueil",    "url": "/Salon2/",              "emoji": "🏠" },
-  { "label": "Programme",  "url": "/Salon2/programme/",    "emoji": "📅" },
-  { "label": "Exposants",  "url": "/Salon2/exposants/",    "emoji": "🏪" },
-  { "label": "Tombola",    "url": "/Salon2/tombola/",      "emoji": "🎟️" },
-  { "label": "Savons",     "url": "/Salon2/savon/",        "emoji": "🧼" },
-  { "label": "Galerie",    "url": "/Salon2/galerie/",      "emoji": "📸" },
-  { "label": "Buvette",    "url": "/Salon2/buvette/",      "emoji": "☕" },
-  { "label": "Food Truck", "url": "/Salon2/foodtruck/",    "emoji": "🚚" },
-  { "label": "Blog",       "url": "/Salon2/blog/",         "emoji": "📰" },
-  { "label": "À propos",   "url": "/Salon2/apropos/",      "emoji": "🌿" }
-]
+{
+  "items": [
+    { "label": "Accueil",    "url": "/Salon2/",           "emoji": "🏠" },
+    { "label": "Programme",  "url": "/Salon2/programme/", "emoji": "📅" },
+    { "label": "Exposants",  "url": "/Salon2/exposants/", "emoji": "🏪" },
+    { "label": "Tombola",    "url": "/Salon2/tombola/",   "emoji": "🎟️" },
+    { "label": "Savons",     "url": "/Salon2/savon/",     "emoji": "🧼" },
+    { "label": "Galerie",    "url": "/Salon2/galerie/",   "emoji": "📸" },
+    { "label": "Buvette",    "url": "/Salon2/buvette/",   "emoji": "☕" },
+    { "label": "Food Truck", "url": "/Salon2/foodtruck/", "emoji": "🚚" },
+    { "label": "Blog",       "url": "/Salon2/blog/",      "emoji": "📰" },
+    { "label": "À propos",   "url": "/Salon2/apropos/",   "emoji": "🌿" }
+  ]
+}

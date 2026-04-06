@@ -68,7 +68,7 @@ hero:
   {% set articles = collections.articles | sort(attribute="data.date") | reverse %}
   {% if articles | length %}
     {% for article in articles %}
-    <a href="{{ article.url }}" class="article-carte" style="animation-delay:{{ 0.4 + loop.index0 * 0.1 }}s">
+    <a href="{{ article.url | url }}" class="article-carte" style="animation-delay:{{ 0.4 + loop.index0 * 0.1 }}s">
       <div style="height:3px;background:linear-gradient(to right,var(--sauge),var(--or),var(--lotus));"></div>
       <div class="article-corps">
         <div class="article-meta">
