@@ -7,7 +7,7 @@ backend:
   repo: bridgeflowfolk/Salon        # ← adapter si besoin
   branch: main
   base_url: https://sveltia-cms-auth.pages.dev
-  app_id: TON_CLIENT_ID_ICI         # ← coller le Client ID OAuth GitHub
+  app_id: Ov23ctywFQW683vRdjFB
 
 # Photos uploadées via le CMS → src/static/photos/
 media_folder: "src/static/photos"
