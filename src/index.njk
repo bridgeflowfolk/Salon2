@@ -255,7 +255,7 @@ pageStyles: |
 
 {# Grille navigation pages #}
 <div class="nav-grille">
-  {% for item in navigation %}
+  {% for item in navigation.items %}
   {% if item.url != "/" %}
   <a href="{{ item.url }}" class="nav-carte">
     <span class="nav-emoji">{{ item.emoji }}</span>
