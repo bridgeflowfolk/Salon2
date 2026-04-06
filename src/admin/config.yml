@@ -6,7 +6,7 @@ backend:
   name: github
   repo: bridgeflowfolk/Salon2        # ← adapter si besoin
   branch: main
-  base_url: https://sveltia-cms-auth.pages.dev
+  base_url: https://sveltia-cms-auth.patrick1127-bff.workers.dev
   app_id: Ov23ctywFQW683vRdjFB
 
 # Photos uploadées via le CMS → src/static/photos/
