@@ -4,7 +4,7 @@
 
 backend:
   name: github
-  repo: bridgeflowfolk/Salon        # ← adapter si besoin
+  repo: bridgeflowfolk/Salon2        # ← adapter si besoin
   branch: main
   base_url: https://sveltia-cms-auth.pages.dev
   app_id: Ov23ctywFQW683vRdjFB
