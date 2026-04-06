@@ -1,5 +1,5 @@
 {
   "tags": "articles",
   "layout": "layout-article.njk",
-  "permalink": "/Salon2/blog/{{ page.fileSlug }}/"
+  "permalink": "/blog/{{ page.fileSlug }}/"
 }
