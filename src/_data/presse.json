@@ -1,0 +1,86 @@
+{
+  "email_presse": "bridgeandflowfolk@gmail.com",
+  "intro": "Depuis notre création, des médias locaux relaient notre démarche.<br>Retrouvez ici toutes leurs publications.",
+  "articles": [
+    {
+      "media": "Radio Intensité",
+      "type": "🎙 Radio · Eure-et-Loir",
+      "date": "5 avril 2026",
+      "titre": "Un salon du bien-être pour créer du lien à Nogent-le-Roi",
+      "desc": "Radio Intensité consacre un reportage complet au Salon Bien-Être et Créateurs organisé par Bridge & Flow Folk pour le week-end de Pâques. L'article présente l'association, les 38 exposants réunis, les ateliers (yoga, musicothérapie, écriture) et la tombola au profit de la Ligue contre le cancer. Il inclut l'interview audio d'Adeline Grandjean-Langlois, co-fondatrice et sophrologue.",
+      "cta": "Lire & écouter le reportage",
+      "url": "https://www.intensite.net/un-salon-du-bien-etre-pour-creer-du-lien-a-nogent-le-roi",
+      "featured": true
+    },
+    {
+      "media": "L'Écho Républicain",
+      "type": "🗞️ Presse · Compte-rendu",
+      "date": "Avril 2026",
+      "titre": "Le premier salon intergénérationnel pour le bien-être s'est tenu ce week-end",
+      "desc": "Retour sur le succès de l'édition d'avril : une fréquentation au rendez-vous pour découvrir les exposants et participer aux ateliers. Un événement qui a su tenir sa promesse de créer du lien social.",
+      "cta": "Lire l'article",
+      "url": "https://www.lechorepublicain.fr/nogent-le-roi-28210/loisirs/le-premier-salon-intergenerationnel-pour-le-bien-etre-sest-tenu-ce-week-end_14956492/",
+      "featured": false
+    },
+    {
+      "media": "MtaVille.fr",
+      "type": "📍 Actualité locale",
+      "date": "Mars 2026",
+      "titre": "Focus : Le Salon Bien-être Intergénérationnel de Nogent",
+      "desc": "MtaVille met en lumière l'initiative de l'association Bridge & Flow Folk. Zoom sur le concept innovant mêlant détente, artisanat et solidarité locale.",
+      "cta": "Voir l'actualité",
+      "url": "https://mtaville.fr/28210/nogent-le-roi/actualites/salon-bien-etre-intergenerationnel-182659.php",
+      "featured": false
+    },
+    {
+      "media": "L'Écho Républicain",
+      "type": "🗞️ Portrait · Association",
+      "date": "Mars 2026",
+      "titre": "Une association pour créer des liens entre les générations",
+      "desc": "Portrait de l'association Bridge & Flow Folk et de ses fondatrices. Découvrez la genèse du projet et les valeurs de partage qui animent chaque événement.",
+      "cta": "Lire le portrait",
+      "url": "https://www.lechorepublicain.fr/nogent-le-roi-28210/actualites/une-association-pour-creer-des-liens-entre-les-generations_14947615/",
+      "featured": false
+    },
+    {
+      "media": "L'Éveil / Le JDC",
+      "type": "🗓️ Agenda des sorties",
+      "date": "Avril 2026",
+      "titre": "Salon Bien-être et Créateurs : Programme complet",
+      "desc": "Fiche détaillée de l'événement de Pâques au Château de Nogent-le-Roi : horaires, liste des activités et informations pratiques pour les visiteurs.",
+      "cta": "Consulter la fiche",
+      "url": "https://www.leveil.fr/loisirs/agenda-sorties/evenement/338854",
+      "featured": false
+    },
+    {
+      "media": "L'Écho Républicain",
+      "type": "🗞️ Presse · Annonce",
+      "date": "Février 2026",
+      "titre": "Un salon du bien-être prévu début avril à Nogent-le-Roi",
+      "desc": "Premières annonces presse pour l'édition printanière. L'article détaille l'organisation et l'importance d'un tel rendez-vous pour le dynamisme de la commune.",
+      "cta": "Lire l'article",
+      "url": "https://www.lechorepublicain.fr/nogent-le-roi-28210/actualites/un-salon-du-bien-etre-prevu-debut-avril_14837038/",
+      "featured": false
+    },
+    {
+      "media": "MtaVille.fr",
+      "type": "🗓️ Agenda Sorties",
+      "date": "Avril 2026",
+      "titre": "Salon intergénérationnel Bien-être & Créateurs",
+      "desc": "Retrouvez tous les détails de l'édition d'avril 2026 sur l'agenda MtaVille : un week-end dédié à la reconnexion à soi et aux autres dans un cadre historique.",
+      "cta": "Voir la fiche",
+      "url": "https://mtaville.fr/28210/nogent-le-roi/agenda/salon-intergenerationnel-bien-etre-createurs-4713.php",
+      "featured": false
+    },
+    {
+      "media": "Radio Intensité",
+      "type": "🎙 Radio · Annonce",
+      "date": "Février 2026",
+      "titre": "Salon intergénérationnel Bien-être et créateurs — Nogent-le-Roi",
+      "desc": "Annonce officielle du premier salon BFF : programme, dates, lieu et présentation de l'association et de sa démarche solidaire. Bien-être physique, émotionnel, mental et social à l'honneur.",
+      "cta": "Lire l'annonce",
+      "url": "https://www.intensite.net/nogent-le-roi-salon-intergenerationnel-bien-etre-et-createurs-2",
+      "featured": false
+    }
+  ]
+}
