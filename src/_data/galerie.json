@@ -1,5 +1,10 @@
 {
   "title": "Galerie photos – Salon Bien-Être et Créateurs | Bridge & Flow Folk",
   "description": "Découvrez les photos du Salon Bien-Être et Créateurs organisé par Bridge & Flow Folk à Nogent-le-Roi.",
-  "photos": []
+  "photos": [
+    {
+      "nom": "Salon2/photos/19175.png",
+      "alt": "Logo"
+    }
+  ]
 }
