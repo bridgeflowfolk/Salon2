@@ -3,7 +3,17 @@ module.exports = function (eleventyConfig) {
   // ── Assets statiques ─────────────────────────────────────────
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
+
+  // Copie src/static/* vers la racine du site (_site/)
+  // → src/static/photos/ma-photo.jpg devient _site/photos/ma-photo.jpg
+  // → URL publique : /Salon2/photos/ma-photo.jpg (avec pathPrefix)
   eleventyConfig.addPassthroughCopy({ "src/static": "/" });
+
+  // Passthrough explicite pour les photos uploadées via Sveltia CMS
+  // (media_folder: "/src/static/photos" dans config.yml)
+  // Redondant avec la ligne ci-dessus, mais garantit la copie même
+  // si le dossier est créé après le premier build.
+  eleventyConfig.addPassthroughCopy("src/static/photos");
 
   // ── Filtre : lien actif dans la nav ──────────────────────────
   eleventyConfig.addFilter("isActive", (navUrl, pageUrl) => {
