@@ -208,61 +208,83 @@ pageStyles: |
   <footer>© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28)</footer>
 </div>
 
-{# Lightbox #}
-<div id="lightbox" onclick="fermerZoom()">
+{# Lightbox — structure identique à la version HTML de référence #}
+<div id="lightbox">
   <div class="lb-contenu">
-    <button class="lb-close" onclick="fermerZoom()" aria-label="Fermer">&times;</button>
-    <button class="lb-nav lb-prev" onclick="photoPrecedente(event)" aria-label="Photo précédente">&#10094;</button>
-    <img id="imgZoom" src="" alt="Photo agrandie" />
-    <button class="lb-nav lb-next" onclick="photoSuivante(event)" aria-label="Photo suivante">&#10095;</button>
+    <span class="lb-close">&times;</span>
+    <button class="lb-nav lb-prev">&#10094;</button>
+    <img id="imgZoom" src="" alt="Zoom" />
+    <button class="lb-nav lb-next">&#10095;</button>
   </div>
   <div class="lb-compteur" id="compteur"></div>
 </div>
 
-{# JS Lightbox — tableau injecté depuis galerie.json via 11ty #}
+{# JS — tableau injecté par 11ty au build depuis galerie.json #}
 <script>
+  // Tableau généré au build par 11ty
   const photosTab = [
     {% for photo in g.photos %}
-    { src: "{{ "/" if not photo.nom.startsWith("/") }}{{ photo.nom }}", alt: {{ photo.alt | dump }} }{{ "," if not loop.last }}
+    {
+      src: "{{ "/" if not photo.nom.startsWith("/") }}{{ photo.nom }}",
+      alt: {{ photo.alt | dump }}
+    }{{ "," if not loop.last }}
     {% endfor %}
   ];
 
+  const dossier = "";
   let indexActuel = 0;
 
+  const lightbox  = document.getElementById("lightbox");
+  const imgZoom   = document.getElementById("imgZoom");
+  const compteur  = document.getElementById("compteur");
+  const btnPrev   = lightbox.querySelector(".lb-prev");
+  const btnNext   = lightbox.querySelector(".lb-next");
+  const btnClose  = lightbox.querySelector(".lb-close");
+
   function majLightbox() {
-    const { src, alt } = photosTab[indexActuel];
-    document.getElementById("imgZoom").src = src;
-    document.getElementById("imgZoom").alt = alt;
-    document.getElementById("compteur").textContent = `${indexActuel + 1} / ${photosTab.length}`;
+    const p = photosTab[indexActuel];
+    imgZoom.src = p.src;
+    imgZoom.alt = p.alt;
+    compteur.textContent = `${indexActuel + 1} / ${photosTab.length}`;
   }
 
   function ouvrirZoom(index) {
     if (!photosTab.length) return;
     indexActuel = index;
     majLightbox();
-    document.getElementById("lightbox").classList.add("actif");
+    lightbox.classList.add("actif");
     document.body.style.overflow = "hidden";
   }
 
   function fermerZoom() {
-    document.getElementById("lightbox").classList.remove("actif");
+    lightbox.classList.remove("actif");
     document.body.style.overflow = "";
   }
 
   function photoSuivante(e) {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     indexActuel = (indexActuel + 1) % photosTab.length;
     majLightbox();
   }
 
   function photoPrecedente(e) {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     indexActuel = (indexActuel - 1 + photosTab.length) % photosTab.length;
     majLightbox();
   }
 
+  // Fermer en cliquant sur le fond (pas sur le contenu)
+  lightbox.addEventListener("click", fermerZoom);
+  lightbox.querySelector(".lb-contenu").addEventListener("click", (e) => e.stopPropagation());
+
+  // Boutons nav et fermeture
+  btnClose.addEventListener("click", fermerZoom);
+  btnNext.addEventListener("click", photoSuivante);
+  btnPrev.addEventListener("click", photoPrecedente);
+
+  // Navigation clavier
   document.addEventListener("keydown", (e) => {
-    if (!document.getElementById("lightbox").classList.contains("actif")) return;
+    if (!lightbox.classList.contains("actif")) return;
     if (e.key === "ArrowRight") photoSuivante(e);
     if (e.key === "ArrowLeft")  photoPrecedente(e);
     if (e.key === "Escape")     fermerZoom();
