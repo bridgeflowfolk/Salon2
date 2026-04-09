@@ -264,31 +264,27 @@ collections:
               - { label: "Sous-titre", name: sousTitre, widget: string }
 
       # ── GALERIE ──────────────────────────────────────────────
-      # Les photos sont uploadées via le widget "image" de Sveltia CMS
-      # → elles atterrissent dans src/static/photos/ (media_folder global)
-      # → l'URL publique est /Salon2/photos/<fichier>
-      # Pour supprimer une photo : retirer la ligne dans la liste ET
-      # supprimer le fichier manuellement dans GitHub (Assets ou code).
+      # Les photos sont dans src/_data/galerie.json
+      # Le widget image upload dans une liste widget: list fonctionne
+      # uniquement sur un fichier JSON dédié (pas dans le front matter .njk)
       - name: galerie
         label: "📸 Galerie"
-        file: src/galerie.njk
+        file: src/_data/galerie.json
+        media_folder: "src/static/photos"
+        public_folder: "/Salon2/photos"
         fields:
           - { label: "Titre SEO", name: title, widget: string }
           - { label: "Description SEO", name: description, widget: text }
           - label: "Photos"
             name: photos
             widget: list
-            # Chaque entrée = une photo uploadable + son alt
-            summary: "{{alt}} ({{nom}})"
+            summary: "{{alt}}"
             fields:
-              - label: "Fichier image"
+              - label: "Image"
                 name: nom
                 widget: image
-                # Dossier de stockage propre à la galerie (isolé des autres uploads)
-                media_folder: "/src/static/photos"
-                public_folder: "/Salon2/photos"
-                hint: "JPEG ou WebP recommandé · max 2 Mo · ratio 4:3 ou 3:2 idéal"
-              - { label: "Description (accessibilité / légende)", name: alt, widget: string, hint: "Ex: Atelier yoga parents-enfants" }
+                hint: "JPEG ou WebP · max 2 Mo · ratio 4:3 idéal"
+              - { label: "Description / légende", name: alt, widget: string, hint: "Ex: Atelier yoga parents-enfants" }
 
       # ── À PROPOS ─────────────────────────────────────────────
       - name: apropos
@@ -346,17 +342,15 @@ collections:
           - { label: "Description SEO", name: description, widget: text }
 
       # ── PAGE PRESSE ──────────────────────────────────────────
+      # Les données sont dans src/_data/presse.json
+      # Le CMS Sveltia ne parse pas correctement les listes YAML
+      # complexes dans le front matter .njk — JSON dédié obligatoire
       - name: page-presse
         label: "📡 Presse & Médias"
-        file: src/presse.njk
+        file: src/_data/presse.json
         fields:
-          - { label: "Titre SEO", name: title, widget: string }
-          - { label: "Description SEO", name: description, widget: text }
-          - { label: "Email contact presse", name: email_presse, widget: string, hint: "Affiché dans l'encart 'Vous couvrez notre événement ?'" }
-          - label: "Texte d'introduction"
-            name: intro
-            widget: text
-            hint: "Courte phrase introductive sous le hero. HTML basique autorisé (<br>)."
+          - { label: "Email contact presse", name: email_presse, widget: string, hint: "Affiché dans l'encart contact" }
+          - { label: "Texte d'introduction", name: intro, widget: text, hint: "HTML basique autorisé (<br>)" }
           - label: "Articles de presse"
             name: articles
             widget: list
@@ -375,7 +369,7 @@ collections:
                 widget: boolean
                 default: false
                 required: false
-                hint: "Si activé, cet article s'affiche en pleine largeur en tête de grille"
+                hint: "Si activé : article pleine largeur en tête de grille"
 
   # ── 4. NAVIGATION ────────────────────────────────────────────
   - name: navigation

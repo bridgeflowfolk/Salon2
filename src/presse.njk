@@ -10,92 +10,21 @@ hero:
   titre:     "Ils parlent"
   titreEm:   "de nous"
   sousTitre: "Articles, interviews & reportages"
-
-intro: "Depuis notre création, des médias locaux relaient notre démarche.<br>Retrouvez ici toutes leurs publications."
-
-email_presse: "bridgeandflowfolk@gmail.com"
-
-articles:
-
-  - media:     "Radio Intensité"
-    type:      "🎙 Radio · Eure-et-Loir"
-    date:      "5 avril 2026"
-    titre:     "Un salon du bien-être pour créer du lien à Nogent-le-Roi"
-    desc:      "Radio Intensité consacre un reportage complet au Salon Bien-Être et Créateurs organisé par Bridge & Flow Folk pour le week-end de Pâques. L'article présente l'association, les 38 exposants réunis, les ateliers (yoga, musicothérapie, écriture) et la tombola au profit de la Ligue contre le cancer. Il inclut l'interview audio d'Adeline Grandjean-Langlois, co-fondatrice et sophrologue."
-    cta:       "Lire & écouter le reportage"
-    url:       "https://www.intensite.net/un-salon-du-bien-etre-pour-creer-du-lien-a-nogent-le-roi"
-    featured:  true
-
-  - media:     "L'Écho Républicain"
-    type:      "🗞️ Presse · Compte-rendu"
-    date:      "Avril 2026"
-    titre:     "Le premier salon intergénérationnel pour le bien-être s'est tenu ce week-end"
-    desc:      "Retour sur le succès de l'édition d'avril : une fréquentation au rendez-vous pour découvrir les exposants et participer aux ateliers. Un événement qui a su tenir sa promesse de créer du lien social."
-    cta:       "Lire l'article"
-    url:       "https://www.lechorepublicain.fr/nogent-le-roi-28210/loisirs/le-premier-salon-intergenerationnel-pour-le-bien-etre-sest-tenu-ce-week-end_14956492/"
-
-  - media:     "MtaVille.fr"
-    type:      "📍 Actualité locale"
-    date:      "Mars 2026"
-    titre:     "Focus : Le Salon Bien-être Intergénérationnel de Nogent"
-    desc:      "MtaVille met en lumière l'initiative de l'association Bridge & Flow Folk. Zoom sur le concept innovant mêlant détente, artisanat et solidarité locale."
-    cta:       "Voir l'actualité"
-    url:       "https://mtaville.fr/28210/nogent-le-roi/actualites/salon-bien-etre-intergenerationnel-182659.php"
-
-  - media:     "L'Écho Républicain"
-    type:      "🗞️ Portrait · Association"
-    date:      "Mars 2026"
-    titre:     "Une association pour créer des liens entre les générations"
-    desc:      "Portrait de l'association Bridge & Flow Folk et de ses fondatrices. Découvrez la genèse du projet et les valeurs de partage qui animent chaque événement."
-    cta:       "Lire le portrait"
-    url:       "https://www.lechorepublicain.fr/nogent-le-roi-28210/actualites/une-association-pour-creer-des-liens-entre-les-generations_14947615/"
-
-  - media:     "L'Éveil / Le JDC"
-    type:      "🗓️ Agenda des sorties"
-    date:      "Avril 2026"
-    titre:     "Salon Bien-être et Créateurs : Programme complet"
-    desc:      "Fiche détaillée de l'événement de Pâques au Château de Nogent-le-Roi : horaires, liste des activités et informations pratiques pour les visiteurs."
-    cta:       "Consulter la fiche"
-    url:       "https://www.leveil.fr/loisirs/agenda-sorties/evenement/338854"
-
-  - media:     "L'Écho Républicain"
-    type:      "🗞️ Presse · Annonce"
-    date:      "Février 2026"
-    titre:     "Un salon du bien-être prévu début avril à Nogent-le-Roi"
-    desc:      "Premières annonces presse pour l'édition printanière. L'article détaille l'organisation et l'importance d'un tel rendez-vous pour le dynamisme de la commune."
-    cta:       "Lire l'article"
-    url:       "https://www.lechorepublicain.fr/nogent-le-roi-28210/actualites/un-salon-du-bien-etre-prevu-debut-avril_14837038/"
-
-  - media:     "MtaVille.fr"
-    type:      "🗓️ Agenda Sorties"
-    date:      "Avril 2026"
-    titre:     "Salon intergénérationnel Bien-être & Créateurs"
-    desc:      "Retrouvez tous les détails de l'édition d'avril 2026 sur l'agenda MtaVille : un week-end dédié à la reconnexion à soi et aux autres dans un cadre historique."
-    cta:       "Voir la fiche"
-    url:       "https://mtaville.fr/28210/nogent-le-roi/agenda/salon-intergenerationnel-bien-etre-createurs-4713.php"
-
-  - media:     "Radio Intensité"
-    type:      "🎙 Radio · Annonce"
-    date:      "Février 2026"
-    titre:     "Salon intergénérationnel Bien-être et créateurs — Nogent-le-Roi"
-    desc:      "Annonce officielle du premier salon BFF : programme, dates, lieu et présentation de l'association et de sa démarche solidaire. Bien-être physique, émotionnel, mental et social à l'honneur."
-    cta:       "Lire l'annonce"
-    url:       "https://www.intensite.net/nogent-le-roi-salon-intergenerationnel-bien-etre-et-createurs-2"
 ---
 
 {% from "composants/sep.njk"    import sep %}
 {% from "composants/footer.njk" import footer_bloc %}
 
+{# Les données viennent de src/_data/presse.json — variable globale `presse` dans 11ty #}
+{% set d = presse %}
+
 <style>
-  /* ── GRILLE PRESSE ── */
   .grille-presse {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1.5rem;
     margin-bottom: 3rem;
   }
-
-  /* ── CARTE ARTICLE ── */
   .carte-article {
     background: rgba(255,255,255,0.55);
     border: 1px solid rgba(201,169,110,0.3);
@@ -121,8 +50,6 @@ articles:
     box-shadow: 0 12px 32px rgba(160,132,92,0.15);
     border-color: rgba(201,169,110,0.6);
   }
-
-  /* Featured */
   .carte-article.featured { grid-column: 1 / -1; }
   .carte-article.featured .carte-titre { font-size: 1.45rem; }
   @media(min-width: 640px) {
@@ -130,7 +57,6 @@ articles:
     .carte-article.featured .carte-media-header { width: 220px; flex-shrink: 0; height: auto; }
     .carte-article.featured .carte-corps { padding: 1.5rem 2rem; }
   }
-
   .label-featured {
     position: absolute;
     top: 14px; right: 14px;
@@ -144,8 +70,6 @@ articles:
     padding: 0.25rem 0.75rem;
     z-index: 1;
   }
-
-  /* En-tête média */
   .carte-media-header {
     height: 80px;
     display: flex;
@@ -164,7 +88,6 @@ articles:
     border-right: 1px solid rgba(201,169,110,0.12);
     padding: 1.5rem;
   }
-
   .badge-media {
     font-size: 0.6rem;
     letter-spacing: 0.22em;
@@ -183,8 +106,6 @@ articles:
     color: var(--sauge);
     opacity: 0.75;
   }
-
-  /* Corps */
   .carte-corps {
     padding: 1.1rem 1.4rem 1.4rem;
     flex: 1;
@@ -240,8 +161,6 @@ articles:
     border-left: 5px solid var(--terre);
   }
   .carte-article:hover .cta-fleche { width: 22px; }
-
-  /* Intro */
   .presse-intro {
     text-align: center;
     max-width: 540px;
@@ -252,8 +171,6 @@ articles:
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
   }
-
-  /* Encart contact */
   .carte-contact-presse {
     background: rgba(122,158,126,0.07);
     border: 1px dashed rgba(122,158,126,0.4);
@@ -284,7 +201,6 @@ articles:
     transition: color 0.2s, border-color 0.2s;
   }
   .carte-contact-presse a:hover { color: var(--sauge); border-color: var(--sauge); }
-
   @media(max-width: 480px) {
     .grille-presse { grid-template-columns: 1fr; gap: 1rem; }
     .carte-article.featured { grid-column: 1; }
@@ -292,20 +208,18 @@ articles:
   }
 </style>
 
-<!-- HERO -->
 <div class="hero anime" style="animation-delay:0.2s">
   <span class="hero-tag">{{ hero.tag }}</span>
   <h1>{{ hero.titre }}<br><em>{{ hero.titreEm }}</em></h1>
   <p class="hero-sub">{{ hero.sousTitre }}</p>
 </div>
 
-<p class="presse-intro anime" style="animation-delay:0.4s">{{ intro | safe }}</p>
+<p class="presse-intro anime" style="animation-delay:0.4s">{{ d.intro | safe }}</p>
 
 {{ sep() }}
 
-<!-- GRILLE ARTICLES -->
 <div class="grille-presse">
-  {% for art in articles %}
+  {% for art in d.articles %}
   <a class="carte-article{% if art.featured %} featured{% endif %} anime"
      href="{{ art.url }}"
      target="_blank"
@@ -331,11 +245,10 @@ articles:
   {% endfor %}
 </div>
 
-<!-- Encart contact presse -->
 <div class="carte-contact-presse anime" style="animation-delay:0.9s">
   <p>Vous couvrez notre événement ?</p>
-  <a href="mailto:{{ email_presse }}">
-    Contactez-nous pour un dossier de presse → {{ email_presse }}
+  <a href="mailto:{{ d.email_presse }}">
+    Contactez-nous pour un dossier de presse → {{ d.email_presse }}
   </a>
 </div>
 

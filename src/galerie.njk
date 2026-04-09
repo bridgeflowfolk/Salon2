@@ -11,17 +11,6 @@ hero:
   titreEm:   "Galerie"
   sousTitre: "L'univers de nos créateurs à travers l'objectif"
 
-# ── LISTE DES PHOTOS ─────────────────────────────────────────────
-# Chemin relatif depuis la racine du site (ex: /photos/maphoto.jpg)
-# Ajouter une entrée = une photo de plus dans la galerie, sans toucher au code
-photos:
-  dossier: "/photos/"
-  fichiers:
-    - nom: "affiche.jpg"
-      alt: "Affiche du salon Bien-Être et Créateurs"
-    - nom: "affiche2.jpg"
-      alt: "Affiche 2 du salon Bien-Être et Créateurs"
-
 pageStyles: |
   /* ── Grille galerie ── */
   .galerie-grille {
@@ -67,6 +56,20 @@ pageStyles: |
 
   .photo-carte:hover .img-container img {
     transform: scale(1.12);
+  }
+
+  /* ── Galerie vide ── */
+  .galerie-vide {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    opacity: 0.55;
+  }
+  .galerie-vide p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--terre);
   }
 
   /* ── Lightbox ── */
@@ -151,6 +154,9 @@ pageStyles: |
   }
 ---
 
+{# Les données viennent de src/_data/galerie.json — variable globale `galerie` #}
+{% set g = galerie %}
+
 {# Hero #}
 <div class="hero anime">
   <span class="hero-tag">{{ hero.tag }}</span>
@@ -166,21 +172,27 @@ pageStyles: |
   <div class="sep-r"></div>
 </div>
 
-{# Grille photos — générée depuis le front matter #}
+{# Grille photos — données depuis galerie.json #}
 <div class="galerie-grille" id="conteneurGalerie">
-  {% for photo in photos.fichiers %}
-  <div class="photo-carte"
-       style="animation-delay: {{ 0.2 + loop.index0 * 0.08 }}s"
-       onclick="ouvrirZoom({{ loop.index0 }})"
-       role="button"
-       aria-label="Agrandir : {{ photo.alt }}">
-    <div class="img-container">
-      <img src="{{ photos.dossier }}{{ photo.nom }}"
-           alt="{{ photo.alt }}"
-           loading="lazy" />
+  {% if g.photos and g.photos.length %}
+    {% for photo in g.photos %}
+    <div class="photo-carte"
+         style="animation-delay: {{ 0.2 + loop.index0 * 0.08 }}s"
+         onclick="ouvrirZoom({{ loop.index0 }})"
+         role="button"
+         aria-label="Agrandir : {{ photo.alt }}">
+      <div class="img-container">
+        <img src="{{ photo.nom }}"
+             alt="{{ photo.alt }}"
+             loading="lazy" />
+      </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  {% else %}
+    <div class="galerie-vide">
+      <p>Les photos arrivent bientôt…</p>
+    </div>
+  {% endif %}
 </div>
 
 {# Footer #}
@@ -207,12 +219,11 @@ pageStyles: |
   <div class="lb-compteur" id="compteur"></div>
 </div>
 
-{# JS Lightbox — données injectées depuis le front matter #}
+{# JS Lightbox — tableau injecté depuis galerie.json via 11ty #}
 <script>
-  // Tableau de photos généré par 11ty au build
   const photosTab = [
-    {% for photo in photos.fichiers %}
-    { src: "{{ photos.dossier }}{{ photo.nom }}", alt: "{{ photo.alt }}" }{{ "," if not loop.last }}
+    {% for photo in g.photos %}
+    { src: {{ photo.nom | dump }}, alt: {{ photo.alt | dump }} }{{ "," if not loop.last }}
     {% endfor %}
   ];
 
@@ -226,6 +237,7 @@ pageStyles: |
   }
 
   function ouvrirZoom(index) {
+    if (!photosTab.length) return;
     indexActuel = index;
     majLightbox();
     document.getElementById("lightbox").classList.add("actif");
