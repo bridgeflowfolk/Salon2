@@ -138,8 +138,13 @@ pageStyles: |
   }
 
   /* ── MASQUE NAVBAR EN LIGHTBOX ── */
-  body.lightbox-open header {
-    display: none;
+  body.lightbox-open .nav-principale,
+  body.lightbox-open .nav-mobile {
+    display: none !important;
+  }
+  
+  body.lightbox-open {
+    overflow: hidden;
   }
 ---
 
