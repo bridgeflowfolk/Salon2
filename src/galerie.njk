@@ -3,7 +3,7 @@ layout: base.njk
 permalink: /galerie/
 
 title: "Galerie — Bien-Être et Créateurs 2026"
-description: "Découvrez l'univers de nos créateurs en images. Galerie photos du salon Bien-Être et Créateurs de Bridge & Flow Folk à Nogent-le-Roi."
+description: "Découvrez l'univers de nos créateurs en images. Galerie photos du salon de Bridge & Flow Folk à Nogent-le-Roi."
 
 hero:
   tag:       "Souvenirs & Émotions · Bridge & Flow Folk"
@@ -12,7 +12,6 @@ hero:
   sousTitre: "L'univers de nos créateurs à travers l'objectif"
 
 pageStyles: |
-  /* ── Grille galerie ── */
   .galerie-grille {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -41,8 +40,7 @@ pageStyles: |
   }
 
   .img-container img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
@@ -54,28 +52,12 @@ pageStyles: |
     background: rgba(255, 255, 255, 0.7);
   }
 
-  .photo-carte:hover .img-container img {
-    transform: scale(1.12);
-  }
+  .photo-carte:hover .img-container img { transform: scale(1.12); }
 
-  /* ── Galerie vide ── */
-  .galerie-vide {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 4rem 2rem;
-    opacity: 0.55;
-  }
-  .galerie-vide p {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--terre);
-  }
-
-  /* ── Lightbox ── */
+  /* ── Lightbox (Lecteur) ── */
   #lightbox {
     position: fixed; inset: 0;
-    background: rgba(15, 15, 20, 0.98);
+    background: rgba(10, 10, 12, 0.98);
     backdrop-filter: blur(15px);
     display: none;
     z-index: 10000;
@@ -105,7 +87,7 @@ pageStyles: |
   }
 
   @keyframes zoomDouce {
-    from { opacity: 0; transform: scale(0.9); }
+    from { opacity: 0; transform: scale(0.95); }
     to   { opacity: 1; transform: scale(1); }
   }
 
@@ -117,126 +99,113 @@ pageStyles: |
     border-radius: 50%; font-size: 1.8rem;
     cursor: pointer; transition: 0.3s;
     display: flex; align-items: center; justify-content: center;
+    z-index: 10;
   }
   .lb-nav:hover { background: var(--or); color: var(--nuit); }
   .lb-prev { left: -80px; }
   .lb-next { right: -80px; }
 
   .lb-close {
-    position: absolute; top: -60px; right: 0;
-    color: white; font-size: 2.5rem; cursor: pointer;
-    font-family: 'Josefin Sans', sans-serif; opacity: 0.7;
-    background: none; border: none;
+    position: absolute; 
+    top: -60px; 
+    right: 0;
+    color: white; 
+    font-size: 3rem; 
+    cursor: pointer;
+    font-family: Arial, sans-serif; 
+    line-height: 1;
+    opacity: 0.7;
+    background: none; 
+    border: none;
+    padding: 10px;
+    z-index: 100;
   }
   .lb-close:hover { opacity: 1; color: var(--or); }
 
   .lb-compteur {
     margin-top: 25px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.5);
     font-family: 'Josefin Sans', sans-serif;
     letter-spacing: 3px; font-size: 0.9rem;
   }
 
-  .footer-bloc {
-    text-align: center;
-    opacity: 0; animation: glisser-haut 0.8s ease forwards 0.8s;
-  }
-
   @media(max-width: 850px) {
-    .lb-nav { width: 50px; height: 50px; top: auto; bottom: -70px; transform: none; }
-    .lb-prev { left: 20%; }
-    .lb-next { right: 20%; }
-    .lb-close { right: 10px; top: -50px; }
+    .lb-nav { width: 50px; height: 50px; top: auto; bottom: -80px; transform: none; }
+    .lb-prev { left: 25%; }
+    .lb-next { right: 25%; }
+    .lb-close { right: 0px; top: -60px; }
   }
   @media(max-width: 480px) {
     .galerie-grille { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .photo-carte { padding: 5px; border-radius: 10px; }
   }
 ---
 
-{# Hero #}
-<div class="hero anime">
-  <span class="hero-tag">{{ hero.tag }}</span>
-  <h1>{{ hero.titre }} <em>{{ hero.titreEm }}</em></h1>
-  <p class="hero-sub">{{ hero.sousTitre }}</p>
-</div>
+{% set g = galerie %}
 
-<div class="sep">
-  <div class="sep-l"></div>
-  <div class="sep-d"></div>
-  <div class="sep-d" style="background:var(--sauge)"></div>
-  <div class="sep-d"></div>
-  <div class="sep-r"></div>
-</div>
+<main>
+  {# Hero Section #}
+  <div class="hero anime">
+    <span class="hero-tag">{{ hero.tag }}</span>
+    <h1>{{ hero.titre }} <em>{{ hero.titreEm }}</em></h1>
+    <p class="hero-sub">{{ hero.sousTitre }}</p>
+  </div>
 
-{# Grille #}
-<div class="galerie-grille" id="conteneurGalerie"></div>
+  <div class="sep">
+    <div class="sep-l"></div><div class="sep-d"></div><div class="sep-d" style="background:var(--sauge)"></div><div class="sep-d"></div><div class="sep-r"></div>
+  </div>
 
-{# Footer #}
-<div class="footer-bloc">
-  <a class="fb-lien"
-     href="https://www.facebook.com/people/Bridge-Flow-Folk-BFF/61587252715739/"
-     target="_blank" rel="noopener noreferrer">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
-    </svg>
-    Suivre l'aventure BFF
-  </a>
-  <footer>© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28)</footer>
-</div>
+  {# Grille #}
+  <div class="galerie-grille" id="conteneurGalerie"></div>
 
-{# Lightbox (Avec les événements onClick restaurés comme dans ta version HTML) #}
+  {# Footer #}
+  <div style="text-align:center; margin-top: 3rem;" class="anime">
+    <a class="fb-lien" href="https://www.facebook.com/people/Bridge-Flow-Folk-BFF/61587252715739/" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+      Suivre l'aventure BFF
+    </a>
+    <footer style="margin-top:10px; opacity:0.6; font-size:0.9rem;">© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28)</footer>
+  </div>
+</main>
+
+{# Visionneuse #}
 <div id="lightbox" onclick="fermerZoom()">
-  <div class="lb-contenu">
-    <span class="lb-close">&times;</span>
+  <div class="lb-contenu" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="fermerZoom()">&times;</button>
     <button class="lb-nav lb-prev" onclick="photoPrecedente(event)">&#10094;</button>
-    <img id="imgZoom" src="" alt="Zoom" />
+    <img id="imgZoom" src="" alt="Agrandissement" />
     <button class="lb-nav lb-next" onclick="photoSuivante(event)">&#10095;</button>
   </div>
   <div class="lb-compteur" id="compteur"></div>
 </div>
 
 <script>
-  // 1. Injection sécurisée des données de _data/galerie.json
-  // Le filtre `dump | safe` transforme l'objet JSON Nunjucks en JavaScript valide sans casser les guillemets.
-  const donneesGalerie = {{ galerie.photos | dump | safe }};
+  // 1. Injection des données depuis galerie.json
+  const dataBrute = {{ g.photos | dump | safe }};
   
-  // 2. Le chemin vers tes images (comme dans ton HTML !)
-  const dossier = "/salon2/photos/"; 
-  
-  // 3. Formatage final du tableau pour correspondre à la logique souhaitée
-  const photosTab = donneesGalerie.map(photo => ({
-    nom: photo.nom,
-    src: dossier + photo.nom, // On ajoute le bon dossier
-    alt: photo.alt || "Photo"
+  // 2. Préparation des chemins (on s'assure que ça commence par / pour éviter les erreurs de dossier relatif)
+  const photosTab = dataBrute.map(p => ({
+    src: p.nom.startsWith('http') || p.nom.startsWith('/') ? p.nom : '/' + p.nom,
+    alt: p.alt || "Photo du Salon"
   }));
 
   let indexActuel = 0;
 
-  // ── Génération de la galerie ──
+  // 3. Génération de la grille
   function genererGalerie() {
     const conteneur = document.getElementById('conteneurGalerie');
     if (!conteneur) return;
     
-    conteneur.innerHTML = "";
-
     if (!photosTab.length) {
       conteneur.innerHTML = '<div class="galerie-vide"><p>Les photos arrivent bientôt…</p></div>';
       return;
     }
 
     const fragment = document.createDocumentFragment();
-
     photosTab.forEach((photo, index) => {
       const carte = document.createElement('div');
       carte.className = 'photo-carte';
-      carte.style.animationDelay = `${0.2 + (index * 0.08)}s`;
-      carte.setAttribute("role", "button");
-      carte.setAttribute("aria-label", `Agrandir : ${photo.alt}`);
-      
-      // Gestion du clic
+      carte.style.animationDelay = `${0.2 + (index * 0.05)}s`;
       carte.onclick = () => ouvrirZoom(index);
-
       carte.innerHTML = `
         <div class="img-container">
           <img src="${photo.src}" alt="${photo.alt}" loading="lazy">
@@ -244,60 +213,52 @@ pageStyles: |
       `;
       fragment.appendChild(carte);
     });
-
     conteneur.appendChild(fragment);
   }
 
-  // ── Logique Lightbox (Identique à ta version HTML) ──
+  // 4. Logique Lightbox
   function ouvrirZoom(index) {
     indexActuel = index;
     majLightbox();
     document.getElementById('lightbox').classList.add('actif');
-    document.body.style.overflow = "hidden"; // Optionnel: empêche le scroll du fond
+    document.body.style.overflow = "hidden"; // Stop scroll fond
   }
-  
+
   function majLightbox() {
     const img = document.getElementById('imgZoom');
-    const compteur = document.getElementById('compteur');
+    const cpt = document.getElementById('compteur');
     if (img) {
       img.src = photosTab[indexActuel].src;
       img.alt = photosTab[indexActuel].alt;
     }
-    if (compteur) compteur.innerText = `${indexActuel + 1} / ${photosTab.length}`;
+    if (cpt) cpt.innerText = `${indexActuel + 1} / ${photosTab.length}`;
   }
-  
-  function photoSuivante(e) { 
-    if (e) e.stopPropagation(); 
-    indexActuel = (indexActuel + 1) % photosTab.length; 
-    majLightbox(); 
+
+  function photoSuivante(e) {
+    if (e) e.stopPropagation();
+    indexActuel = (indexActuel + 1) % photosTab.length;
+    majLightbox();
   }
-  
-  function photoPrecedente(e) { 
-    if (e) e.stopPropagation(); 
-    indexActuel = (indexActuel - 1 + photosTab.length) % photosTab.length; 
-    majLightbox(); 
+
+  function photoPrecedente(e) {
+    if (e) e.stopPropagation();
+    indexActuel = (indexActuel - 1 + photosTab.length) % photosTab.length;
+    majLightbox();
   }
-  
-  function fermerZoom() { 
-    document.getElementById('lightbox').classList.remove('actif'); 
-    document.body.style.overflow = "";
-  }
-  
-  // Évite que le clic sur l'image elle-même ferme la lightbox
-  const lbContenu = document.querySelector(".lb-contenu");
-  if (lbContenu) {
-    lbContenu.addEventListener("click", (e) => e.stopPropagation());
+
+  function fermerZoom() {
+    document.getElementById('lightbox').classList.remove('actif');
+    document.body.style.overflow = ""; // Relance scroll fond
   }
 
   // Navigation clavier
   document.addEventListener('keydown', (e) => {
-    const lightbox = document.getElementById('lightbox');
-    if (!lightbox || !lightbox.classList.contains('actif')) return;
-  
+    const lb = document.getElementById('lightbox');
+    if (!lb || !lb.classList.contains('actif')) return;
     if (e.key === "ArrowRight") photoSuivante(e);
     if (e.key === "ArrowLeft") photoPrecedente(e);
     if (e.key === "Escape") fermerZoom();
   });
-  
+
   window.addEventListener('load', genererGalerie);
 </script>
