@@ -10,7 +10,7 @@ backend:
   app_id: Ov23ctywFQW683vRdjFB
 
 # Photos uploadées via le CMS → src/static/photos/
-media_folder: "src/static/photos"
+media_folder: "/src/static/photos"
 public_folder: "/Salon2/photos"
 locale: fr
 
