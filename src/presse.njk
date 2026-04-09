@@ -1,0 +1,342 @@
+---
+layout: base.njk
+permalink: /presse/
+
+title: "Ils parlent de nous – Presse & Médias | Bridge & Flow Folk"
+description: "Retrouvez tous les articles de presse, interviews et reportages consacrés au Salon Bien-Être et Créateurs organisé par Bridge & Flow Folk à Nogent-le-Roi."
+
+hero:
+  tag:       "Bridge & Flow Folk · Revue de presse"
+  titre:     "Ils parlent"
+  titreEm:   "de nous"
+  sousTitre: "Articles, interviews & reportages"
+
+intro: "Depuis notre création, des médias locaux relaient notre démarche.<br>Retrouvez ici toutes leurs publications."
+
+email_presse: "bridgeandflowfolk@gmail.com"
+
+articles:
+
+  - media:     "Radio Intensité"
+    type:      "🎙 Radio · Eure-et-Loir"
+    date:      "5 avril 2026"
+    titre:     "Un salon du bien-être pour créer du lien à Nogent-le-Roi"
+    desc:      "Radio Intensité consacre un reportage complet au Salon Bien-Être et Créateurs organisé par Bridge & Flow Folk pour le week-end de Pâques. L'article présente l'association, les 38 exposants réunis, les ateliers (yoga, musicothérapie, écriture) et la tombola au profit de la Ligue contre le cancer. Il inclut l'interview audio d'Adeline Grandjean-Langlois, co-fondatrice et sophrologue."
+    cta:       "Lire & écouter le reportage"
+    url:       "https://www.intensite.net/un-salon-du-bien-etre-pour-creer-du-lien-a-nogent-le-roi"
+    featured:  true
+
+  - media:     "L'Écho Républicain"
+    type:      "🗞️ Presse · Compte-rendu"
+    date:      "Avril 2026"
+    titre:     "Le premier salon intergénérationnel pour le bien-être s'est tenu ce week-end"
+    desc:      "Retour sur le succès de l'édition d'avril : une fréquentation au rendez-vous pour découvrir les exposants et participer aux ateliers. Un événement qui a su tenir sa promesse de créer du lien social."
+    cta:       "Lire l'article"
+    url:       "https://www.lechorepublicain.fr/nogent-le-roi-28210/loisirs/le-premier-salon-intergenerationnel-pour-le-bien-etre-sest-tenu-ce-week-end_14956492/"
+
+  - media:     "MtaVille.fr"
+    type:      "📍 Actualité locale"
+    date:      "Mars 2026"
+    titre:     "Focus : Le Salon Bien-être Intergénérationnel de Nogent"
+    desc:      "MtaVille met en lumière l'initiative de l'association Bridge & Flow Folk. Zoom sur le concept innovant mêlant détente, artisanat et solidarité locale."
+    cta:       "Voir l'actualité"
+    url:       "https://mtaville.fr/28210/nogent-le-roi/actualites/salon-bien-etre-intergenerationnel-182659.php"
+
+  - media:     "L'Écho Républicain"
+    type:      "🗞️ Portrait · Association"
+    date:      "Mars 2026"
+    titre:     "Une association pour créer des liens entre les générations"
+    desc:      "Portrait de l'association Bridge & Flow Folk et de ses fondatrices. Découvrez la genèse du projet et les valeurs de partage qui animent chaque événement."
+    cta:       "Lire le portrait"
+    url:       "https://www.lechorepublicain.fr/nogent-le-roi-28210/actualites/une-association-pour-creer-des-liens-entre-les-generations_14947615/"
+
+  - media:     "L'Éveil / Le JDC"
+    type:      "🗓️ Agenda des sorties"
+    date:      "Avril 2026"
+    titre:     "Salon Bien-être et Créateurs : Programme complet"
+    desc:      "Fiche détaillée de l'événement de Pâques au Château de Nogent-le-Roi : horaires, liste des activités et informations pratiques pour les visiteurs."
+    cta:       "Consulter la fiche"
+    url:       "https://www.leveil.fr/loisirs/agenda-sorties/evenement/338854"
+
+  - media:     "L'Écho Républicain"
+    type:      "🗞️ Presse · Annonce"
+    date:      "Février 2026"
+    titre:     "Un salon du bien-être prévu début avril à Nogent-le-Roi"
+    desc:      "Premières annonces presse pour l'édition printanière. L'article détaille l'organisation et l'importance d'un tel rendez-vous pour le dynamisme de la commune."
+    cta:       "Lire l'article"
+    url:       "https://www.lechorepublicain.fr/nogent-le-roi-28210/actualites/un-salon-du-bien-etre-prevu-debut-avril_14837038/"
+
+  - media:     "MtaVille.fr"
+    type:      "🗓️ Agenda Sorties"
+    date:      "Avril 2026"
+    titre:     "Salon intergénérationnel Bien-être & Créateurs"
+    desc:      "Retrouvez tous les détails de l'édition d'avril 2026 sur l'agenda MtaVille : un week-end dédié à la reconnexion à soi et aux autres dans un cadre historique."
+    cta:       "Voir la fiche"
+    url:       "https://mtaville.fr/28210/nogent-le-roi/agenda/salon-intergenerationnel-bien-etre-createurs-4713.php"
+
+  - media:     "Radio Intensité"
+    type:      "🎙 Radio · Annonce"
+    date:      "Février 2026"
+    titre:     "Salon intergénérationnel Bien-être et créateurs — Nogent-le-Roi"
+    desc:      "Annonce officielle du premier salon BFF : programme, dates, lieu et présentation de l'association et de sa démarche solidaire. Bien-être physique, émotionnel, mental et social à l'honneur."
+    cta:       "Lire l'annonce"
+    url:       "https://www.intensite.net/nogent-le-roi-salon-intergenerationnel-bien-etre-et-createurs-2"
+---
+
+{% from "composants/sep.njk"    import sep %}
+{% from "composants/footer.njk" import footer_bloc %}
+
+<style>
+  /* ── GRILLE PRESSE ── */
+  .grille-presse {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  /* ── CARTE ARTICLE ── */
+  .carte-article {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+  }
+  .carte-article::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--sauge), var(--or), var(--lotus));
+  }
+  .carte-article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(160,132,92,0.15);
+    border-color: rgba(201,169,110,0.6);
+  }
+
+  /* Featured */
+  .carte-article.featured { grid-column: 1 / -1; }
+  .carte-article.featured .carte-titre { font-size: 1.45rem; }
+  @media(min-width: 640px) {
+    .carte-article.featured { flex-direction: row; }
+    .carte-article.featured .carte-media-header { width: 220px; flex-shrink: 0; height: auto; }
+    .carte-article.featured .carte-corps { padding: 1.5rem 2rem; }
+  }
+
+  .label-featured {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    background: rgba(201,169,110,0.18);
+    border: 1px solid rgba(201,169,110,0.4);
+    color: var(--or);
+    border-radius: 100px;
+    padding: 0.25rem 0.75rem;
+    z-index: 1;
+  }
+
+  /* En-tête média */
+  .carte-media-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.5rem 0.5rem;
+    background: rgba(245,240,232,0.4);
+    border-bottom: 1px solid rgba(201,169,110,0.12);
+  }
+  .carte-article.featured .carte-media-header {
+    height: 100%;
+    min-height: 140px;
+    border-bottom: none;
+    border-right: 1px solid rgba(201,169,110,0.12);
+    padding: 1.5rem;
+  }
+
+  .badge-media {
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terre);
+    border: 1px solid rgba(201,169,110,0.45);
+    border-radius: 100px;
+    padding: 0.3rem 0.9rem;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+  }
+  .media-type {
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sauge);
+    opacity: 0.75;
+  }
+
+  /* Corps */
+  .carte-corps {
+    padding: 1.1rem 1.4rem 1.4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .carte-date {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sauge);
+    opacity: 0.85;
+  }
+  .carte-titre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--nuit);
+  }
+  .carte-desc {
+    font-size: 0.77rem;
+    line-height: 1.65;
+    color: rgba(44,44,58,0.72);
+    flex: 1;
+  }
+  .carte-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.75rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terre);
+    transition: gap 0.2s;
+  }
+  .carte-article:hover .carte-cta { gap: 0.75rem; }
+  .cta-fleche {
+    width: 16px; height: 1px;
+    background: var(--terre);
+    position: relative;
+    transition: width 0.2s;
+    flex-shrink: 0;
+  }
+  .cta-fleche::after {
+    content: '';
+    position: absolute;
+    right: 0; top: -3px;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 5px solid var(--terre);
+  }
+  .carte-article:hover .cta-fleche { width: 22px; }
+
+  /* Intro */
+  .presse-intro {
+    text-align: center;
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: rgba(44,44,58,0.65);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  /* Encart contact */
+  .carte-contact-presse {
+    background: rgba(122,158,126,0.07);
+    border: 1px dashed rgba(122,158,126,0.4);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .carte-contact-presse p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--sauge);
+    margin: 0;
+  }
+  .carte-contact-presse a {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terre);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(160,132,92,0.35);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .carte-contact-presse a:hover { color: var(--sauge); border-color: var(--sauge); }
+
+  @media(max-width: 480px) {
+    .grille-presse { grid-template-columns: 1fr; gap: 1rem; }
+    .carte-article.featured { grid-column: 1; }
+    .carte-article.featured .carte-titre { font-size: 1.2rem; }
+  }
+</style>
+
+<!-- HERO -->
+<div class="hero anime" style="animation-delay:0.2s">
+  <span class="hero-tag">{{ hero.tag }}</span>
+  <h1>{{ hero.titre }}<br><em>{{ hero.titreEm }}</em></h1>
+  <p class="hero-sub">{{ hero.sousTitre }}</p>
+</div>
+
+<p class="presse-intro anime" style="animation-delay:0.4s">{{ intro | safe }}</p>
+
+{{ sep() }}
+
+<!-- GRILLE ARTICLES -->
+<div class="grille-presse">
+  {% for art in articles %}
+  <a class="carte-article{% if art.featured %} featured{% endif %} anime"
+     href="{{ art.url }}"
+     target="_blank"
+     rel="noopener noreferrer"
+     style="animation-delay:{{ 0.5 + loop.index0 * 0.1 }}s">
+
+    {% if art.featured %}
+    <span class="label-featured">À la une</span>
+    {% endif %}
+
+    <div class="carte-media-header">
+      <span class="badge-media">{{ art.media }}</span>
+      <span class="media-type">{{ art.type }}</span>
+    </div>
+
+    <div class="carte-corps">
+      <span class="carte-date">{{ art.date }}</span>
+      <h2 class="carte-titre">{{ art.titre }}</h2>
+      <p class="carte-desc">{{ art.desc }}</p>
+      <span class="carte-cta">{{ art.cta }} <span class="cta-fleche"></span></span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<!-- Encart contact presse -->
+<div class="carte-contact-presse anime" style="animation-delay:0.9s">
+  <p>Vous couvrez notre événement ?</p>
+  <a href="mailto:{{ email_presse }}">
+    Contactez-nous pour un dossier de presse → {{ email_presse }}
+  </a>
+</div>
+
+{{ footer_bloc() }}
