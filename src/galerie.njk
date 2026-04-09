@@ -182,7 +182,7 @@ pageStyles: |
          role="button"
          aria-label="Agrandir : {{ photo.alt }}">
       <div class="img-container">
-        <img src="{{ photo.nom }}"
+        <img src="{{ "/" if not photo.nom.startsWith("/") }}{{ photo.nom }}"
              alt="{{ photo.alt }}"
              loading="lazy" />
       </div>
@@ -223,7 +223,7 @@ pageStyles: |
 <script>
   const photosTab = [
     {% for photo in g.photos %}
-    { src: {{ photo.nom | dump }}, alt: {{ photo.alt | dump }} }{{ "," if not loop.last }}
+    { src: "{{ "/" if not photo.nom.startsWith("/") }}{{ photo.nom }}", alt: {{ photo.alt | dump }} }{{ "," if not loop.last }}
     {% endfor %}
   ];
 
