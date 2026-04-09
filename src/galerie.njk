@@ -154,9 +154,6 @@ pageStyles: |
   }
 ---
 
-{# Les données viennent de src/_data/galerie.json — variable globale `galerie` #}
-{% set g = galerie %}
-
 {# Hero #}
 <div class="hero anime">
   <span class="hero-tag">{{ hero.tag }}</span>
@@ -172,7 +169,7 @@ pageStyles: |
   <div class="sep-r"></div>
 </div>
 
-{# Grille vide — remplie en JS depuis photosTab (même pattern que galerie.html) #}
+{# Grille #}
 <div class="galerie-grille" id="conteneurGalerie"></div>
 
 {# Footer #}
@@ -188,35 +185,39 @@ pageStyles: |
   <footer>© 2026 Bridge &amp; Flow Folk · Nogent-le-Roi (28)</footer>
 </div>
 
-{# Lightbox — structure identique à la version HTML de référence #}
-<div id="lightbox">
+{# Lightbox (Avec les événements onClick restaurés comme dans ta version HTML) #}
+<div id="lightbox" onclick="fermerZoom()">
   <div class="lb-contenu">
     <span class="lb-close">&times;</span>
-    <button class="lb-nav lb-prev">&#10094;</button>
+    <button class="lb-nav lb-prev" onclick="photoPrecedente(event)">&#10094;</button>
     <img id="imgZoom" src="" alt="Zoom" />
-    <button class="lb-nav lb-next">&#10095;</button>
+    <button class="lb-nav lb-next" onclick="photoSuivante(event)">&#10095;</button>
   </div>
   <div class="lb-compteur" id="compteur"></div>
 </div>
 
-{# JS — même pattern que galerie.html : génération DOM + lightbox #}
 <script>
-  // Tableau injecté par 11ty au build depuis src/_data/galerie.json
-  const photosTab = [
-    {% for photo in g.photos %}
-    {
-      src: "{{ "/" if not photo.nom.startsWith("/") }}{{ photo.nom }}",
-      alt: {{ photo.alt | dump }}
-    }{{ "," if not loop.last }}
-    {% endfor %}
-  ];
+  // 1. Injection sécurisée des données de _data/galerie.json
+  // Le filtre `dump | safe` transforme l'objet JSON Nunjucks en JavaScript valide sans casser les guillemets.
+  const donneesGalerie = {{ galerie.photos | dump | safe }};
+  
+  // 2. Le chemin vers tes images (comme dans ton HTML !)
+  const dossier = "/photos/"; 
+  
+  // 3. Formatage final du tableau pour correspondre à la logique souhaitée
+  const photosTab = donneesGalerie.map(photo => ({
+    nom: photo.nom,
+    src: dossier + photo.nom, // On ajoute le bon dossier
+    alt: photo.alt || "Photo"
+  }));
 
   let indexActuel = 0;
 
-  // ── Génération de la grille (identique à galerie.html) ──────────
+  // ── Génération de la galerie ──
   function genererGalerie() {
-    const conteneur = document.getElementById("conteneurGalerie");
+    const conteneur = document.getElementById('conteneurGalerie');
     if (!conteneur) return;
+    
     conteneur.innerHTML = "";
 
     if (!photosTab.length) {
@@ -225,75 +226,78 @@ pageStyles: |
     }
 
     const fragment = document.createDocumentFragment();
+
     photosTab.forEach((photo, index) => {
-      const carte = document.createElement("div");
-      carte.className = "photo-carte";
-      carte.style.animationDelay = `${0.2 + index * 0.08}s`;
+      const carte = document.createElement('div');
+      carte.className = 'photo-carte';
+      carte.style.animationDelay = `${0.2 + (index * 0.08)}s`;
       carte.setAttribute("role", "button");
       carte.setAttribute("aria-label", `Agrandir : ${photo.alt}`);
-      carte.addEventListener("click", () => ouvrirZoom(index));
+      
+      // Gestion du clic
+      carte.onclick = () => ouvrirZoom(index);
+
       carte.innerHTML = `
         <div class="img-container">
-          <img src="${photo.src}" alt="${photo.alt}" loading="lazy" />
-        </div>`;
+          <img src="${photo.src}" alt="${photo.alt}" loading="lazy">
+        </div>
+      `;
       fragment.appendChild(carte);
     });
+
     conteneur.appendChild(fragment);
   }
 
-  // ── Lightbox ────────────────────────────────────────────────────
-  const lightbox = document.getElementById("lightbox");
-  const imgZoom  = document.getElementById("imgZoom");
-  const compteur = document.getElementById("compteur");
-
-  function majLightbox() {
-    const p = photosTab[indexActuel];
-    imgZoom.src = p.src;
-    imgZoom.alt = p.alt;
-    compteur.textContent = `${indexActuel + 1} / ${photosTab.length}`;
-  }
-
+  // ── Logique Lightbox (Identique à ta version HTML) ──
   function ouvrirZoom(index) {
-    if (!photosTab.length) return;
     indexActuel = index;
     majLightbox();
-    lightbox.classList.add("actif");
-    document.body.style.overflow = "hidden";
+    document.getElementById('lightbox').classList.add('actif');
+    document.body.style.overflow = "hidden"; // Optionnel: empêche le scroll du fond
   }
-
-  function fermerZoom() {
-    lightbox.classList.remove("actif");
+  
+  function majLightbox() {
+    const img = document.getElementById('imgZoom');
+    const compteur = document.getElementById('compteur');
+    if (img) {
+      img.src = photosTab[indexActuel].src;
+      img.alt = photosTab[indexActuel].alt;
+    }
+    if (compteur) compteur.innerText = `${indexActuel + 1} / ${photosTab.length}`;
+  }
+  
+  function photoSuivante(e) { 
+    if (e) e.stopPropagation(); 
+    indexActuel = (indexActuel + 1) % photosTab.length; 
+    majLightbox(); 
+  }
+  
+  function photoPrecedente(e) { 
+    if (e) e.stopPropagation(); 
+    indexActuel = (indexActuel - 1 + photosTab.length) % photosTab.length; 
+    majLightbox(); 
+  }
+  
+  function fermerZoom() { 
+    document.getElementById('lightbox').classList.remove('actif'); 
     document.body.style.overflow = "";
   }
-
-  function photoSuivante(e) {
-    if (e) e.stopPropagation();
-    indexActuel = (indexActuel + 1) % photosTab.length;
-    majLightbox();
+  
+  // Évite que le clic sur l'image elle-même ferme la lightbox
+  const lbContenu = document.querySelector(".lb-contenu");
+  if (lbContenu) {
+    lbContenu.addEventListener("click", (e) => e.stopPropagation());
   }
-
-  function photoPrecedente(e) {
-    if (e) e.stopPropagation();
-    indexActuel = (indexActuel - 1 + photosTab.length) % photosTab.length;
-    majLightbox();
-  }
-
-  // Fond → ferme ; contenu → ne ferme pas
-  lightbox.addEventListener("click", fermerZoom);
-  lightbox.querySelector(".lb-contenu").addEventListener("click", (e) => e.stopPropagation());
-
-  lightbox.querySelector(".lb-close").addEventListener("click", fermerZoom);
-  lightbox.querySelector(".lb-next").addEventListener("click", photoSuivante);
-  lightbox.querySelector(".lb-prev").addEventListener("click", photoPrecedente);
 
   // Navigation clavier
-  document.addEventListener("keydown", (e) => {
-    if (!lightbox.classList.contains("actif")) return;
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox || !lightbox.classList.contains('actif')) return;
+  
     if (e.key === "ArrowRight") photoSuivante(e);
-    if (e.key === "ArrowLeft")  photoPrecedente(e);
-    if (e.key === "Escape")     fermerZoom();
+    if (e.key === "ArrowLeft") photoPrecedente(e);
+    if (e.key === "Escape") fermerZoom();
   });
-
-  // Lancer au chargement (identique à galerie.html)
-  window.addEventListener("load", genererGalerie);
+  
+  window.addEventListener('load', genererGalerie);
 </script>
