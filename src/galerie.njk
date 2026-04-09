@@ -172,28 +172,8 @@ pageStyles: |
   <div class="sep-r"></div>
 </div>
 
-{# Grille photos — données depuis galerie.json #}
-<div class="galerie-grille" id="conteneurGalerie">
-  {% if g.photos and g.photos.length %}
-    {% for photo in g.photos %}
-    <div class="photo-carte"
-         style="animation-delay: {{ 0.2 + loop.index0 * 0.08 }}s"
-         onclick="ouvrirZoom({{ loop.index0 }})"
-         role="button"
-         aria-label="Agrandir : {{ photo.alt }}">
-      <div class="img-container">
-        <img src="{{ "/" if not photo.nom.startsWith("/") }}{{ photo.nom }}"
-             alt="{{ photo.alt }}"
-             loading="lazy" />
-      </div>
-    </div>
-    {% endfor %}
-  {% else %}
-    <div class="galerie-vide">
-      <p>Les photos arrivent bientôt…</p>
-    </div>
-  {% endif %}
-</div>
+{# Grille vide — remplie en JS depuis photosTab (même pattern que galerie.html) #}
+<div class="galerie-grille" id="conteneurGalerie"></div>
 
 {# Footer #}
 <div class="footer-bloc">
@@ -219,9 +199,9 @@ pageStyles: |
   <div class="lb-compteur" id="compteur"></div>
 </div>
 
-{# JS — tableau injecté par 11ty au build depuis galerie.json #}
+{# JS — même pattern que galerie.html : génération DOM + lightbox #}
 <script>
-  // Tableau généré au build par 11ty
+  // Tableau injecté par 11ty au build depuis src/_data/galerie.json
   const photosTab = [
     {% for photo in g.photos %}
     {
@@ -231,15 +211,40 @@ pageStyles: |
     {% endfor %}
   ];
 
-  const dossier = "";
   let indexActuel = 0;
 
-  const lightbox  = document.getElementById("lightbox");
-  const imgZoom   = document.getElementById("imgZoom");
-  const compteur  = document.getElementById("compteur");
-  const btnPrev   = lightbox.querySelector(".lb-prev");
-  const btnNext   = lightbox.querySelector(".lb-next");
-  const btnClose  = lightbox.querySelector(".lb-close");
+  // ── Génération de la grille (identique à galerie.html) ──────────
+  function genererGalerie() {
+    const conteneur = document.getElementById("conteneurGalerie");
+    if (!conteneur) return;
+    conteneur.innerHTML = "";
+
+    if (!photosTab.length) {
+      conteneur.innerHTML = '<div class="galerie-vide"><p>Les photos arrivent bientôt…</p></div>';
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    photosTab.forEach((photo, index) => {
+      const carte = document.createElement("div");
+      carte.className = "photo-carte";
+      carte.style.animationDelay = `${0.2 + index * 0.08}s`;
+      carte.setAttribute("role", "button");
+      carte.setAttribute("aria-label", `Agrandir : ${photo.alt}`);
+      carte.addEventListener("click", () => ouvrirZoom(index));
+      carte.innerHTML = `
+        <div class="img-container">
+          <img src="${photo.src}" alt="${photo.alt}" loading="lazy" />
+        </div>`;
+      fragment.appendChild(carte);
+    });
+    conteneur.appendChild(fragment);
+  }
+
+  // ── Lightbox ────────────────────────────────────────────────────
+  const lightbox = document.getElementById("lightbox");
+  const imgZoom  = document.getElementById("imgZoom");
+  const compteur = document.getElementById("compteur");
 
   function majLightbox() {
     const p = photosTab[indexActuel];
@@ -273,14 +278,13 @@ pageStyles: |
     majLightbox();
   }
 
-  // Fermer en cliquant sur le fond (pas sur le contenu)
+  // Fond → ferme ; contenu → ne ferme pas
   lightbox.addEventListener("click", fermerZoom);
   lightbox.querySelector(".lb-contenu").addEventListener("click", (e) => e.stopPropagation());
 
-  // Boutons nav et fermeture
-  btnClose.addEventListener("click", fermerZoom);
-  btnNext.addEventListener("click", photoSuivante);
-  btnPrev.addEventListener("click", photoPrecedente);
+  lightbox.querySelector(".lb-close").addEventListener("click", fermerZoom);
+  lightbox.querySelector(".lb-next").addEventListener("click", photoSuivante);
+  lightbox.querySelector(".lb-prev").addEventListener("click", photoPrecedente);
 
   // Navigation clavier
   document.addEventListener("keydown", (e) => {
@@ -289,4 +293,7 @@ pageStyles: |
     if (e.key === "ArrowLeft")  photoPrecedente(e);
     if (e.key === "Escape")     fermerZoom();
   });
+
+  // Lancer au chargement (identique à galerie.html)
+  window.addEventListener("load", genererGalerie);
 </script>
